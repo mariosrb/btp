@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 const ElegantNavbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,42 +32,62 @@ const ElegantNavbar = () => {
             </div>
           </div>
 
-          {/* Navigation */}
-          <div className="flex items-center space-x-8">
-            <Link
-              to="/"
-              className="text-slate-200 hover:text-white text-sm font-medium transition-colors duration-200"
+          {/* Toggle + Navigation */}
+          <div className="flex items-center">
+            {/* Bouton hamburger (mobile) */}
+            <button
+              type="button"
+              aria-label="Ouvrir le menu"
+              className="md:hidden text-slate-200 hover:text-white focus:outline-none"
+              onClick={() => setMenuOpen((open) => !open)}
             >
-              Présentation
-            </Link>
+              <span className="block w-6 h-0.5 bg-current mb-1"></span>
+              <span className="block w-6 h-0.5 bg-current mb-1"></span>
+              <span className="block w-6 h-0.5 bg-current"></span>
+            </button>
 
-            <Link
-              to="/about"
-              className="text-slate-200 hover:text-white text-sm font-medium transition-colors duration-200"
-            >
-              Qui sommes-nous
-            </Link>
+            {/* Liens */}
+            <div className={`${menuOpen ? 'flex' : 'hidden'} md:flex items-center space-x-8 ml-4`}>
+              <Link
+                to="/"
+                className="text-slate-200 hover:text-white text-sm font-medium transition-colors duration-200"
+                onClick={() => setMenuOpen(false)}
+              >
+                Présentation
+              </Link>
 
-            <Link
-              to="/realisations"
-              className="text-slate-200 hover:text-white text-sm font-medium transition-colors duration-200"
-            >
-              Réalisations
-            </Link>
-            
-            <Link
-              to="/location"
-              className="text-slate-200 hover:text-white text-sm font-medium transition-colors duration-200"
-            >
-              Location
-            </Link>
+              <Link
+                to="/presentation"
+                className="text-slate-200 hover:text-white text-sm font-medium transition-colors duration-200"
+                onClick={() => setMenuOpen(false)}
+              >
+                Qui sommes-nous
+              </Link>
 
-            <Link
-              to="/contact"
-              className="px-5 py-2 rounded-lg text-sm font-semibold border border-white text-white bg-transparent backdrop-blur-md shadow-sm transition-all duration-200 hover:bg-white hover:bg-opacity-10 hover:text-blue-900"
-            >
-              Contactez-nous
-            </Link>
+              <Link
+                to="/realisations"
+                className="text-slate-200 hover:text-white text-sm font-medium transition-colors duration-200"
+                onClick={() => setMenuOpen(false)}
+              >
+                Réalisations
+              </Link>
+
+              <Link
+                to="/location"
+                className="text-slate-200 hover:text-white text-sm font-medium transition-colors duration-200"
+                onClick={() => setMenuOpen(false)}
+              >
+                Location
+              </Link>
+
+              <Link
+                to="/contact"
+                className="px-5 py-2 rounded-lg text-sm font-semibold border border-white text-white bg-transparent backdrop-blur-md shadow-sm transition-all duration-200 hover:bg-white hover:bg-opacity-10 hover:text-blue-900"
+                onClick={() => setMenuOpen(false)}
+              >
+                Contactez-nous
+              </Link>
+            </div>
           </div>
         </div>
       </div>

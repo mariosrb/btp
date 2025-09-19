@@ -37,3 +37,15 @@
   padding: 2em;
 }
 
+@keyframes zoom-bg {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.08);
+  }
+}
+
+.animate-zoom-bg {
+  animation: zoom-bg 20s ease-in-out infinite alternate;
+}
