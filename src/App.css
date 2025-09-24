@@ -49,3 +49,39 @@
 .animate-zoom-bg {
   animation: zoom-bg 20s ease-in-out infinite alternate;
 }
+
+/* Header normal */
+.header {
+  transition: all 0.3s ease;
+  height: 80px;
+  padding: 1rem 0;
+}
+
+/* Header rétréci au scroll */
+.header.scrolled {
+  height: 60px;
+  padding: 0.5rem 0;
+  backdrop-filter: blur(10px);
+  background: rgba(15, 23, 42, 0.95); /* slate-900 avec transparence */
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Logo qui se rétréci */
+.logo {
+  transition: all 0.3s ease;
+  height: 50px;
+}
+
+.header.scrolled .logo {
+  height: 35px;
+}
+
+/* Menu items */
+.nav-item {
+  transition: all 0.3s ease;
+  font-size: 1rem;
+}
+
+.header.scrolled .nav-item {
+  font-size: 0.9rem;
+}

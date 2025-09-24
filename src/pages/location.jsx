@@ -60,291 +60,389 @@ export default function LocationBenneSection() {
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Hero Section */}
-      <div className="relative bg-gradient-to-br from-blue-900 to-blue-700 text-white py-20">
-        <div className="relative max-w-7xl mx-auto px-4 text-center">
-          <h1 className="text-5xl font-bold mb-6">
-            Location de Bennes
-          </h1>
-          <p className="text-xl mb-8 max-w-2xl mx-auto opacity-90">
-            Solutions professionnelles pour tous vos projets de construction et rénovation.
-            Livraison rapide et service de qualité garantis.
-		  </p>
-			<div className="flex flex-wrap justify-center gap-4">
-			<div className="flex items-center bg-white/20 px-4 py-2 rounded-lg">
-				<CheckCircle className="w-5 h-5 mr-2 text-white" />
-				<span className="text-gray-900">Livraison 24h</span>
-			</div>
-			<div className="flex items-center bg-white/20 px-4 py-2 rounded-lg">
-				<CheckCircle className="w-5 h-5 mr-2 text-white" />
-				<span className="text-gray-900">Tarifs transparents</span>
-			</div>
-			<div className="flex items-center bg-white/20 px-4 py-2 rounded-lg">
-				<CheckCircle className="w-5 h-5 mr-2 text-white" />
-				<span className="text-gray-900">Service 7j/7</span>
-			</div>
-			</div>
+    <div className="min-h-screen bg-slate-50">
+      {/* Hero Section moderne */}
+      <div className="relative bg-slate-900 text-white py-24 overflow-hidden">
+        {/* Pattern de texture industrielle */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="w-full h-full" style={{
+            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px)`
+          }}></div>
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <div className="lg:col-span-8">
+              <div className="space-y-8">
+                <div>
+                  <span className="text-sm font-bold text-yellow-500 bg-yellow-500/20 px-3 py-1 tracking-wide">
+                    SERVICE PREMIUM
+                  </span>
+                </div>
+                <h1 className="text-5xl md:text-7xl font-black leading-tight">
+                  LOCATION DE
+                  <span className="block text-yellow-500">BENNES</span>
+                </h1>
+                <p className="text-xl md:text-2xl text-slate-300 font-light max-w-2xl">
+                  Solutions professionnelles pour tous vos projets de construction et rénovation.
+                  Livraison rapide et service de qualité garantis.
+                </p>
+              </div>
+            </div>
+
+            <div className="lg:col-span-4">
+              <div className="bg-white/10 backdrop-blur-sm p-8 border border-white/20">
+                <h3 className="text-2xl font-bold mb-6">Nos garanties</h3>
+                <div className="space-y-4">
+                  <div className="flex items-center">
+                    <CheckCircle className="w-6 h-6 text-yellow-500 mr-3" />
+                    <span className="text-slate-200">Livraison 24h</span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle className="w-6 h-6 text-yellow-500 mr-3" />
+                    <span className="text-slate-200">Tarifs transparents</span>
+                  </div>
+                  <div className="flex items-center">
+                    <CheckCircle className="w-6 h-6 text-yellow-500 mr-3" />
+                    <span className="text-slate-200">Service 7j/7</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Types de Bennes */}
-      <div className="max-w-7xl mx-auto px-4 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-800 mb-4">
-            Choisissez votre benne
-          </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Une gamme complète de bennes pour répondre à tous vos besoins,
-            des petits travaux aux gros chantiers professionnels.
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-          {benneTypes.map((benne) => (
-            <div
-              key={benne.id}
-              className={`relative bg-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer border-2 ${
-                selectedSize === benne.id
-                  ? 'border-orange-500 transform scale-105'
-                  : 'border-gray-200 hover:border-orange-300'
-              }`}
-              onClick={() => setSelectedSize(benne.id)}
-            >
-              {benne.popular && (
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-orange-500 text-white px-4 py-1 rounded-full text-sm font-semibold">
-                    Plus populaire
-                  </span>
-                </div>
-              )}
-
-              <div className="p-6">
-                {/* Illustration simpliste de benne */}
-                <div className="mb-4 flex justify-center">
-                  <div className="relative">
-                    <div className={`w-16 h-12 bg-gradient-to-br from-orange-400 to-orange-600 rounded-t transform ${
-                      benne.id === '5m3' ? 'scale-75' :
-                      benne.id === '10m3' ? 'scale-90' :
-                      benne.id === '15m3' ? 'scale-100' : 'scale-110'
-                    }`}></div>
-                    <div className={`w-20 h-3 bg-gray-600 rounded-b mx-auto transform ${
-                      benne.id === '5m3' ? 'scale-75' :
-                      benne.id === '10m3' ? 'scale-90' :
-                      benne.id === '15m3' ? 'scale-100' : 'scale-110'
-                    }`}></div>
-                  </div>
-                </div>
-
-                <h3 className="text-2xl font-bold text-gray-800 text-center mb-2">
-                  {benne.name}
-                </h3>
-                <p className="text-gray-600 text-center mb-4">
-                  {benne.description}
-                </p>
-
-                <div className="space-y-2 text-sm text-gray-600 mb-4">
-                  <div><strong>Dimensions:</strong> {benne.dimensions}</div>
-                  <div><strong>Usage:</strong> {benne.usage}</div>
-                </div>
-
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-orange-600 mb-2">
-                    {benne.price}
-                  </div>
-                  <div className="text-sm text-gray-500">
-                    /semaine HT
-                  </div>
+      {/* Stats flottants */}
+      <div className="relative -mt-12 z-20">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="bg-white p-6 shadow-xl hover:-translate-y-2 transition-all duration-300">
+              <div className="flex items-center justify-between">
+                <span className="text-slate-600">Livraison express</span>
+                <div className="w-12 h-12 bg-yellow-500 flex items-center justify-center">
+                  <Truck className="w-6 h-6 text-white" />
                 </div>
               </div>
+              <div className="text-2xl font-black text-slate-900 mt-2">2h</div>
             </div>
-          ))}
-        </div>
 
-        {/* Services */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {services.map((service, index) => (
-            <div key={index} className="text-center">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                <div className="text-orange-600">
-                  {service.icon}
+            <div className="bg-slate-900 p-6 shadow-xl text-white hover:-translate-y-2 transition-all duration-300 md:-mt-4">
+              <div className="flex items-center justify-between">
+                <span className="text-slate-300">Zones couvertes</span>
+                <div className="w-12 h-12 bg-blue-600 flex items-center justify-center">
+                  <MapPin className="w-6 h-6 text-white" />
                 </div>
               </div>
-              <h3 className="text-xl font-semibold text-gray-800 mb-2">
-                {service.title}
-              </h3>
-              <p className="text-gray-600">
-                {service.description}
-              </p>
+              <div className="text-2xl font-black text-yellow-500 mt-2">Île-de-France</div>
             </div>
-          ))}
+
+            <div className="bg-white p-6 shadow-xl hover:-translate-y-2 transition-all duration-300">
+              <div className="flex items-center justify-between">
+                <span className="text-slate-600">À partir de</span>
+                <div className="w-12 h-12 bg-yellow-500 flex items-center justify-center">
+                  <Calculator className="w-6 h-6 text-white" />
+                </div>
+              </div>
+              <div className="text-2xl font-black text-slate-900 mt-2">120€</div>
+            </div>
+          </div>
         </div>
+      </div>
 
-        {/* Formulaire de demande */}
-        <div className="bg-white rounded-2xl shadow-xl p-8 max-w-4xl mx-auto">
-          <h3 className="text-3xl font-bold text-gray-800 text-center mb-8">
-            Demandez votre devis gratuit
-          </h3>
+      {/* Section Types de Bennes */}
+      <div className="max-w-7xl mx-auto px-4 py-20">
+        <div className="space-y-12">
+          <div className="text-center">
+            <span className="text-sm font-bold text-blue-600 bg-blue-100 px-3 py-1 tracking-wide">
+              NOTRE GAMME
+            </span>
+            <h2 className="text-4xl md:text-5xl font-black text-slate-900 mt-6 mb-4">
+              CHOISISSEZ
+              <span className="block text-yellow-500">VOTRE BENNE</span>
+            </h2>
+            <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+              Une gamme complète de bennes pour répondre à tous vos besoins,
+              des petits travaux aux gros chantiers professionnels.
+            </p>
+          </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Type de projet *
-              </label>
-              <select className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500">
-                <option>Rénovation résidentielle</option>
-                <option>Construction neuve</option>
-                <option>Démolition</option>
-                <option>Débarras</option>
-                <option>Travaux de jardinage</option>
-                <option>Autre</option>
-              </select>
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Taille de benne *
-              </label>
-              <select
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-                value={selectedSize}
-                onChange={(e) => setSelectedSize(e.target.value)}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            {benneTypes.map((benne) => (
+              <div
+                key={benne.id}
+                className={`relative bg-white shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer hover:-translate-y-2 ${
+                  selectedSize === benne.id
+                    ? 'ring-4 ring-yellow-500 transform -translate-y-2'
+                    : ''
+                }`}
+                onClick={() => setSelectedSize(benne.id)}
               >
-                {benneTypes.map(benne => (
-                  <option key={benne.id} value={benne.id}>
-                    {benne.name} - {benne.price}/semaine
-                  </option>
-                ))}
-              </select>
+                {benne.popular && (
+                  <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+                    <span className="bg-yellow-500 text-slate-900 px-4 py-1 text-sm font-bold">
+                      PLUS POPULAIRE
+                    </span>
+                  </div>
+                )}
+
+                <div className="p-8">
+                  {/* Illustration simpliste de benne */}
+                  <div className="mb-6 flex justify-center">
+                    <div className="relative">
+                      <div className={`w-16 h-12 bg-gradient-to-br from-slate-700 to-slate-900 transform ${
+                        benne.id === '5m3' ? 'scale-75' :
+                        benne.id === '10m3' ? 'scale-90' :
+                        benne.id === '15m3' ? 'scale-100' : 'scale-110'
+                      }`}></div>
+                      <div className={`w-20 h-3 bg-yellow-500 mx-auto transform ${
+                        benne.id === '5m3' ? 'scale-75' :
+                        benne.id === '10m3' ? 'scale-90' :
+                        benne.id === '15m3' ? 'scale-100' : 'scale-110'
+                      }`}></div>
+                    </div>
+                  </div>
+
+                  <h3 className="text-2xl font-bold text-slate-900 text-center mb-3">
+                    {benne.name}
+                  </h3>
+                  <p className="text-slate-600 text-center mb-6">
+                    {benne.description}
+                  </p>
+
+                  <div className="space-y-3 text-sm text-slate-600 mb-6">
+                    <div><strong>Dimensions:</strong> {benne.dimensions}</div>
+                    <div><strong>Usage:</strong> {benne.usage}</div>
+                  </div>
+
+                  <div className="text-center">
+                    <div className="text-3xl font-black text-slate-900 mb-1">
+                      {benne.price}
+                    </div>
+                    <div className="text-sm text-slate-500">
+                      /semaine HT
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Services - Layout moderne */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+            {services.map((service, index) => (
+              <div key={index} className="text-center">
+                <div className="w-16 h-16 bg-slate-100 mx-auto mb-6 flex items-center justify-center hover:bg-yellow-500 hover:text-white transition-all duration-300 group">
+                  <div className="text-slate-700 group-hover:text-white">
+                    {service.icon}
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">
+                  {service.title}
+                </h3>
+                <p className="text-slate-600">
+                  {service.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          {/* Formulaire de demande - Design épuré */}
+          <div className="bg-white shadow-2xl p-12 max-w-5xl mx-auto">
+            <div className="text-center mb-12">
+              <span className="text-sm font-bold text-yellow-600 bg-yellow-100 px-3 py-1 tracking-wide">
+                DEVIS GRATUIT
+              </span>
+              <h3 className="text-4xl font-black text-slate-900 mt-6 mb-4">
+                RÉSERVEZ
+                <span className="block text-blue-600">VOTRE BENNE</span>
+              </h3>
             </div>
 
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                <MapPin className="w-4 h-4 inline mr-1" />
-                Adresse de livraison *
-              </label>
-              <input
-                type="text"
-                placeholder="Adresse complète"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-              />
-            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-3">
+                  Type de projet *
+                </label>
+                <select className="w-full p-4 border-2 border-slate-300 bg-white focus:border-blue-600 focus:outline-none transition-colors font-medium">
+                  <option>Rénovation résidentielle</option>
+                  <option>Construction neuve</option>
+                  <option>Démolition</option>
+                  <option>Débarras</option>
+                  <option>Travaux de jardinage</option>
+                  <option>Autre</option>
+                </select>
+              </div>
 
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                <Calendar className="w-4 h-4 inline mr-1" />
-                Date de livraison souhaitée *
-              </label>
-              <input
-                type="date"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-              />
-            </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-3">
+                  Taille de benne *
+                </label>
+                <select
+                  className="w-full p-4 border-2 border-slate-300 bg-white focus:border-blue-600 focus:outline-none transition-colors font-medium"
+                  value={selectedSize}
+                  onChange={(e) => setSelectedSize(e.target.value)}
+                >
+                  {benneTypes.map(benne => (
+                    <option key={benne.id} value={benne.id}>
+                      {benne.name} - {benne.price}/semaine
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Nom complet *
-              </label>
-              <input
-                type="text"
-                placeholder="Votre nom et prénom"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-              />
-            </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-3">
+                  <MapPin className="w-4 h-4 inline mr-1" />
+                  Adresse de livraison *
+                </label>
+                <input
+                  type="text"
+                  placeholder="Adresse complète"
+                  className="w-full p-4 border-2 border-slate-300 bg-white focus:border-blue-600 focus:outline-none transition-colors font-medium"
+                />
+              </div>
 
-            <div>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Téléphone *
-              </label>
-              <input
-                type="tel"
-                placeholder="06 12 34 56 78"
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-              />
-            </div>
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-3">
+                  <Calendar className="w-4 h-4 inline mr-1" />
+                  Date de livraison souhaitée *
+                </label>
+                <input
+                  type="date"
+                  className="w-full p-4 border-2 border-slate-300 bg-white focus:border-blue-600 focus:outline-none transition-colors font-medium"
+                />
+              </div>
 
-            <div className="md:col-span-2">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Durée de location
-              </label>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {['1-week', '2-weeks', '1-month', 'other'].map((duration) => (
-                  <button
-                    key={duration}
-                    onClick={() => setSelectedDuration(duration)}
-                    className={`p-3 rounded-lg border-2 transition-all ${
-                      selectedDuration === duration
-                        ? 'border-orange-500 bg-orange-50 text-orange-700'
-                        : 'border-gray-300 hover:border-orange-300'
-                    }`}
-                  >
-                    {duration === '1-week' && '1 semaine'}
-                    {duration === '2-weeks' && '2 semaines'}
-                    {duration === '1-month' && '1 mois'}
-                    {duration === 'other' && 'Autre durée'}
-                  </button>
-                ))}
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-3">
+                  Nom complet *
+                </label>
+                <input
+                  type="text"
+                  placeholder="Votre nom et prénom"
+                  className="w-full p-4 border-2 border-slate-300 bg-white focus:border-blue-600 focus:outline-none transition-colors font-medium"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-3">
+                  Téléphone *
+                </label>
+                <input
+                  type="tel"
+                  placeholder="06 12 34 56 78"
+                  className="w-full p-4 border-2 border-slate-300 bg-white focus:border-blue-600 focus:outline-none transition-colors font-medium"
+                />
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-sm font-bold text-slate-700 mb-3">
+                  Durée de location
+                </label>
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {['1-week', '2-weeks', '1-month', 'other'].map((duration) => (
+                    <button
+                      key={duration}
+                      onClick={() => setSelectedDuration(duration)}
+                      className={`p-4 border-2 transition-all font-medium ${
+                        selectedDuration === duration
+                          ? 'border-yellow-500 bg-yellow-50 text-yellow-700'
+                          : 'border-slate-300 hover:border-blue-600 text-slate-700'
+                      }`}
+                    >
+                      {duration === '1-week' && '1 semaine'}
+                      {duration === '2-weeks' && '2 semaines'}
+                      {duration === '1-month' && '1 mois'}
+                      {duration === 'other' && 'Autre durée'}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="md:col-span-2">
+                <label className="block text-sm font-bold text-slate-700 mb-3">
+                  Informations complémentaires
+                </label>
+                <textarea
+                  rows="4"
+                  placeholder="Décrivez votre projet, contraintes d'accès, type de déchets..."
+                  className="w-full p-4 border-2 border-slate-300 bg-white focus:border-blue-600 focus:outline-none transition-colors resize-none font-medium"
+                ></textarea>
               </div>
             </div>
 
-            <div className="md:col-span-2">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Informations complémentaires
-              </label>
-              <textarea
-                rows="4"
-                placeholder="Décrivez votre projet, contraintes d'accès, type de déchets..."
-                className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-orange-500"
-              ></textarea>
+            <div className="flex flex-col md:flex-row items-center justify-between mt-12 gap-6">
+              <div className="flex items-center text-slate-600">
+                <Shield className="w-5 h-5 mr-2" />
+                Vos données sont protégées et ne seront jamais partagées
+              </div>
+              <div className="flex gap-4">
+                <button className="flex items-center px-6 py-4 border-2 border-blue-600 text-blue-600 font-bold hover:bg-blue-50 transition-colors">
+                  <Phone className="w-4 h-4 mr-2" />
+                  Appeler directement
+                </button>
+                <button className="flex items-center px-8 py-4 bg-yellow-500 text-slate-900 font-bold hover:bg-yellow-400 transition-colors">
+                  <Calculator className="w-4 h-4 mr-2" />
+                  Demander un devis
+                </button>
+              </div>
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-between mt-8 gap-4">
-            <div className="flex items-center text-sm text-gray-600">
-              <Shield className="w-4 h-4 mr-2" />
-              Vos données sont protégées et ne seront jamais partagées
+          {/* Information tarifaire - Design moderne */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 overflow-hidden shadow-2xl">
+            <div className="bg-white p-12 text-center">
+              <h4 className="text-xl font-bold text-slate-900 mb-6">Tarifs inclus</h4>
+              <ul className="space-y-3 text-slate-600">
+                <li className="flex items-center justify-center">
+                  <div className="w-2 h-2 bg-blue-600 mr-3"></div>
+                  Livraison et enlèvement
+                </li>
+                <li className="flex items-center justify-center">
+                  <div className="w-2 h-2 bg-blue-600 mr-3"></div>
+                  Location 1 semaine
+                </li>
+                <li className="flex items-center justify-center">
+                  <div className="w-2 h-2 bg-blue-600 mr-3"></div>
+                  Benne étanche
+                </li>
+              </ul>
             </div>
-            <div className="flex gap-4">
-              <button className="flex items-center px-6 py-3 border-2 border-orange-500 text-orange-600 rounded-lg hover:bg-orange-50 transition-colors">
-                <Phone className="w-4 h-4 mr-2" />
-                Appeler directement
-              </button>
-              <button className="flex items-center px-8 py-3 bg-orange-600 text-white rounded-lg hover:bg-orange-700 transition-colors font-semibold">
-                <Calculator className="w-4 h-4 mr-2" />
-                Demander un devis
-              </button>
-            </div>
-          </div>
-        </div>
 
-        {/* Information tarifaire */}
-        <div className="mt-16 bg-blue-50 rounded-2xl p-8">
-          <h3 className="text-2xl font-bold text-gray-800 text-center mb-6">
-            Informations tarifaires
-          </h3>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
-            <div>
-              <h4 className="font-semibold text-gray-800 mb-2">Tarifs inclus</h4>
-              <ul className="text-sm text-gray-600 space-y-1">
-                <li>• Livraison et enlèvement</li>
-                <li>• Location 1 semaine</li>
-                <li>• Benne étanche</li>
+            <div className="bg-slate-900 p-12 text-center text-white">
+              <h4 className="text-xl font-bold mb-6">Options</h4>
+              <ul className="space-y-3 text-slate-300">
+                <li className="flex items-center justify-center">
+                  <div className="w-2 h-2 bg-yellow-500 mr-3"></div>
+                  Livraison express: +30€
+                </li>
+                <li className="flex items-center justify-center">
+                  <div className="w-2 h-2 bg-yellow-500 mr-3"></div>
+                  Week-end: +25€
+                </li>
+                <li className="flex items-center justify-center">
+                  <div className="w-2 h-2 bg-yellow-500 mr-3"></div>
+                  Semaine supplémentaire: -20%
+                </li>
               </ul>
             </div>
-            <div>
-              <h4 className="font-semibold text-gray-800 mb-2">Options</h4>
-              <ul className="text-sm text-gray-600 space-y-1">
-                <li>• Livraison express: +30€</li>
-                <li>• Week-end: +25€</li>
-                <li>• Semaine supplémentaire: -20%</li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold text-gray-800 mb-2">Zone de livraison</h4>
-              <ul className="text-sm text-gray-600 space-y-1">
-                <li>• Paris et petite couronne</li>
-                <li>• Île-de-France (supplément)</li>
-                <li>• Autres régions sur demande</li>
+
+            <div className="bg-white p-12 text-center">
+              <h4 className="text-xl font-bold text-slate-900 mb-6">Zone de livraison</h4>
+              <ul className="space-y-3 text-slate-600">
+                <li className="flex items-center justify-center">
+                  <div className="w-2 h-2 bg-slate-600 mr-3"></div>
+                  Paris et petite couronne
+                </li>
+                <li className="flex items-center justify-center">
+                  <div className="w-2 h-2 bg-slate-600 mr-3"></div>
+                  Île-de-France (supplément)
+                </li>
+                <li className="flex items-center justify-center">
+                  <div className="w-2 h-2 bg-slate-600 mr-3"></div>
+                  Autres régions sur demande
+                </li>
               </ul>
             </div>
           </div>
