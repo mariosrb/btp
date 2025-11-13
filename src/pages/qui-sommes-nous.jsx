@@ -410,7 +410,7 @@ const AboutDicate = () => {
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <button className="flex items-center justify-center px-8 py-4 bg-yellow-500 text-slate-900 font-bold text-lg hover:bg-yellow-400 transition-colors">
               <Phone className="w-5 h-5 mr-3" />
-              01 45 67 89 10
+                07 62 20 52 19
             </button>
             <button className="flex items-center justify-center px-8 py-4 bg-transparent border-2 border-white text-white font-bold text-lg hover:bg-white hover:text-slate-900 transition-colors">
               Devis gratuit en ligne

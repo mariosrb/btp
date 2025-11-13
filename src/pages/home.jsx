@@ -10,13 +10,12 @@ export default function Home() {
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  // Variables d'état pour les animations
+  const [imagesLoaded, setImagesLoaded] = useState({});
+  const [allImagesPreloaded, setAllImagesPreloaded] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [hasAnimated, setHasAnimated] = useState(false);
   const counterRef = useRef(null);
 
-  // formulaire de contact
   const [formData, setFormData] = useState({
     nom: '',
     prenom: '',
@@ -30,25 +29,47 @@ export default function Home() {
 
   const [isSubmitted, setIsSubmitted] = useState(false);
 
-  // UN SEUL useEffect pour les images de fond (corrigé)
+  // Préchargement des images
   useEffect(() => {
+    const preloadImages = () => {
+      let loadedCount = 0;
+      backgroundImages.forEach((src, index) => {
+        const img = new Image();
+        img.src = src;
+        img.onload = () => {
+          loadedCount++;
+          setImagesLoaded(prev => ({ ...prev, [index]: true }));
+          if (loadedCount === backgroundImages.length) {
+            setAllImagesPreloaded(true);
+          }
+        };
+        img.onerror = () => {
+          loadedCount++;
+          if (loadedCount === backgroundImages.length) {
+            setAllImagesPreloaded(true);
+          }
+        };
+      });
+    };
+    preloadImages();
+  }, []);
+
+  // Rotation des images
+  useEffect(() => {
+    if (!allImagesPreloaded) return;
     const interval = setInterval(() => {
       setCurrentImageIndex((prevIndex) => (prevIndex + 1) % backgroundImages.length);
-    }, 4000);
-
+    }, 5500);
     return () => clearInterval(interval);
-  }, [backgroundImages.length]);
+  }, [allImagesPreloaded]);
 
-  // Animation d'apparition au chargement
+  // Animation d'apparition
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 100);
-
+    const timer = setTimeout(() => setIsVisible(true), 100);
     return () => clearTimeout(timer);
   }, []);
 
-  // Animation des compteurs avec Intersection Observer
+  // Animation des compteurs
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -61,11 +82,7 @@ export default function Home() {
       },
       { threshold: 0.7 }
     );
-
-    if (counterRef.current) {
-      observer.observe(counterRef.current);
-    }
-
+    if (counterRef.current) observer.observe(counterRef.current);
     return () => observer.disconnect();
   }, [hasAnimated]);
 
@@ -75,15 +92,12 @@ export default function Home() {
       { id: 'counter-13', target: 13, suffix: '+', duration: 1500 },
       { id: 'counter-500', target: 500, suffix: '+', duration: 2500 }
     ];
-
     counters.forEach((counter, index) => {
       setTimeout(() => {
         const element = document.getElementById(counter.id);
         if (!element) return;
-
         let current = 0;
         const increment = counter.target / (counter.duration / 16);
-
         const timer = setInterval(() => {
           current += increment;
           if (current >= counter.target) {
@@ -97,7 +111,6 @@ export default function Home() {
     });
   };
 
-  // Gestion du formulaire
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
@@ -109,7 +122,6 @@ export default function Home() {
   const handleSubmit = () => {
     console.log('Données du formulaire:', formData);
     setIsSubmitted(true);
-
     setTimeout(() => {
       setIsSubmitted(false);
       setFormData({
@@ -125,7 +137,6 @@ export default function Home() {
     }, 3000);
   };
 
-  // Message de confirmation
   if (isSubmitted) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
@@ -146,123 +157,93 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero Section avec animations améliorées */}
+      {/* Hero Section */}
       <div className="relative min-h-screen flex items-center overflow-hidden bg-slate-900">
-        {/* Background images avec système de double couche pour éviter le flash */}
-        {backgroundImages.map((image, index) => (
-          <div
-            key={index}
-            className={`absolute inset-0 bg-cover bg-center animate-slow-zoom transition-opacity duration-1000 ease-out ${
-              index === currentImageIndex ? 'opacity-100' : 'opacity-0'
-            }`}
-            style={{
-              backgroundImage: `url(${image})`,
-              transform: 'scale(1.1)',
-              willChange: 'transform, opacity',
-            }}
-          />
-        ))}
-
-        {/* Overlay gradient moderne */}
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-transparent" />
-
-        {/* Pattern industriel subtil */}
-        <div className="absolute inset-0 opacity-5">
-          <div className="w-full h-full" style={{
-            backgroundImage: `repeating-linear-gradient(90deg, transparent, transparent 100px, rgba(255,255,255,0.1) 100px, rgba(255,255,255,0.1) 102px)`
-          }} />
-        </div>
-
-        {/* Particules flottantes */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {[...Array(8)].map((_, i) => (
+        {/* Background images */}
+        {allImagesPreloaded ? (
+          backgroundImages.map((image, index) => (
             <div
-              key={i}
-              className="absolute w-1.5 h-1.5 bg-yellow-500/20 rounded-full animate-float"
+              key={index}
+              className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
+                index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+              }`}
               style={{
-                left: `${15 + i * 10}%`,
-                top: `${20 + (i % 4) * 20}%`,
-                animationDelay: `${i * 0.7}s`,
-                animationDuration: `${4 + i * 0.3}s`
+                backgroundImage: `url(${image})`,
+                transform: 'scale(1.05)',
+                willChange: index === currentImageIndex ? 'opacity' : 'auto',
               }}
             />
-          ))}
-        </div>
+          ))
+        ) : (
+          <div className="absolute inset-0 bg-slate-800 flex items-center justify-center">
+            <div className="text-center">
+              <div className="w-16 h-16 border-4 border-yellow-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-white text-sm">Chargement...</p>
+            </div>
+          </div>
+        )}
+
+        {/* Overlay gradient */}
+        <div className="absolute inset-0 bg-gradient-to-r from-slate-900/95 via-slate-900/70 to-slate-900/40" />
 
         {/* Contenu principal */}
         <div className="relative z-10 max-w-7xl mx-auto px-4 py-20">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center min-h-[60vh]">
 
-            {/* Colonne principale - Message */}
+            {/* Colonne principale */}
             <div className="lg:col-span-7 space-y-10">
-              {/* Badge animé avec apparition progressive */}
-              <div className={`inline-flex items-center space-x-2 transition-all duration-1000 ${
+              {/* Badge */}
+              <div className={`inline-flex items-center space-x-2 transition-all duration-700 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`} style={{ transitionDelay: '0.2s' }}>
-                <div className="w-3 h-3 bg-yellow-500 animate-pulse-slow" />
+              }`}>
+                <div className="w-3 h-3 bg-yellow-500 animate-pulse" />
                 <span className="text-yellow-500 font-bold text-sm tracking-wider">
                   DEPUIS 2011
                 </span>
-                <div className="w-12 h-0.5 bg-yellow-500 animate-expand-width" />
+                <div className="w-12 h-0.5 bg-yellow-500" />
               </div>
 
-              {/* Titre principal avec animations échelonnées */}
+              {/* Titre principal (simplifié - animation en bloc) */}
               <div className="space-y-6">
-                <h1 className="text-5xl md:text-7xl font-black text-white leading-[0.9] tracking-tight">
-                  <span className={`inline-block transition-all duration-800 ${
-                    isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
-                  }`} style={{ transitionDelay: '0.4s' }}>
-                    BÂTIR
-                  </span>{' '}
-                  <span className={`inline-block transition-all duration-800 ${
-                    isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
-                  }`} style={{ transitionDelay: '0.5s' }}>
-                    CE
-                  </span>{' '}
-                  <span className={`inline-block transition-all duration-800 ${
-                    isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
-                  }`} style={{ transitionDelay: '0.6s' }}>
-                    QUI
-                  </span>
-                  <span className={`block text-yellow-500 transition-all duration-800 ${
-                    isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
-                  }`} style={{ transitionDelay: '0.7s' }}>
-                    VOUS IMPORTE
-                  </span>
+                <h1 className={`text-5xl md:text-7xl font-black text-white leading-[0.9] tracking-tight transition-all duration-1000 ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}>
+                  BÂTIR CE QUI
+                  <span className="block text-yellow-500">VOUS IMPORTE</span>
                 </h1>
 
                 <p className={`text-xl md:text-2xl text-slate-200 font-light max-w-xl leading-relaxed transition-all duration-1000 ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                }`} style={{ transitionDelay: '0.9s' }}>
+                }`} style={{ transitionDelay: '0.3s' }}>
                   L'expertise qui inspire la confiance. Des ouvrages qui rendent fiers.
-                  Avec <span className="text-yellow-500 font-semibold animate-glow">DICATE</span>,
+                  Avec <span className="text-yellow-500 font-semibold">DICATE</span>,
                   vos projets prennent de la hauteur.
                 </p>
               </div>
 
-              {/* Statistiques animées */}
+              {/* Statistiques */}
               <div
                 ref={counterRef}
                 className={`flex flex-wrap gap-8 pt-8 transition-all duration-1000 ${
                   isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                 }`}
-                style={{ transitionDelay: '1.1s' }}
+                style={{ transitionDelay: '0.5s' }}
               >
-                <div className="space-y-1 group transform hover:scale-110 transition-transform duration-300">
+                <div className="space-y-1 group transform hover:scale-105 transition-transform duration-300">
                   <div id="counter-98" className="text-3xl font-black text-white group-hover:text-yellow-500 transition-colors">
-                    98%
+                    0%
                   </div>
                   <div className="text-slate-300 text-sm font-medium">DÉLAIS RESPECTÉS</div>
                 </div>
-                <div className="space-y-1 group transform hover:scale-110 transition-transform duration-300">
+                <div className="space-y-1 group transform hover:scale-105 transition-transform duration-300">
                   <div id="counter-13" className="text-3xl font-black text-white group-hover:text-yellow-500 transition-colors">
-                    13+
+                    0+
                   </div>
                   <div className="text-slate-300 text-sm font-medium">ANNÉES D'EXPERTISE</div>
                 </div>
-                <div className="space-y-1 group transform hover:scale-110 transition-transform duration-300">
+                <div className="space-y-1 group transform hover:scale-105 transition-transform duration-300">
                   <div id="counter-500" className="text-3xl font-black text-white group-hover:text-yellow-500 transition-colors">
-                    500+
+                    0+
                   </div>
                   <div className="text-slate-300 text-sm font-medium">PROJETS LIVRÉS</div>
                 </div>
@@ -271,27 +252,25 @@ export default function Home() {
               {/* CTA Buttons */}
               <div className={`flex flex-col sm:flex-row gap-6 pt-6 transition-all duration-1000 ${
                 isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`} style={{ transitionDelay: '1.3s' }}>
-                <button className="px-8 py-4 bg-yellow-500 text-slate-900 font-bold text-lg hover:bg-yellow-400 transition-all duration-300 transform hover:translate-x-1 flex items-center">
+              }`} style={{ transitionDelay: '0.7s' }}>
+                <button className="px-8 py-4 bg-yellow-500 text-slate-900 font-bold text-lg hover:bg-yellow-400 transition-colors duration-300 flex items-center justify-center">
                   DÉCOUVRIR NOS PROJETS
-                  <svg className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </button>
-
                 <button className="px-8 py-4 bg-transparent border-2 border-white text-white font-bold text-lg hover:bg-white hover:text-slate-900 transition-all duration-300">
                   OBTENIR UN DEVIS
                 </button>
               </div>
             </div>
 
-            {/* Colonne sidebar - Informations */}
+            {/* Colonne sidebar */}
             <div className={`lg:col-span-5 lg:pl-8 transition-all duration-1000 ${
               isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
-            }`} style={{ transitionDelay: '1.5s' }}>
+            }`} style={{ transitionDelay: '0.9s' }}>
               <div className="bg-white/10 backdrop-blur-lg border border-white/20 p-8">
-                <h3 className="text-2xl font-bold text-white mb-6 flex items-center">
-                  <div className="w-8 h-0.5 bg-yellow-500 mr-3 animate-expand-width" />
+                <h3 className="text-2xl font-bold text-white mb-6">
                   NOTRE EXPERTISE
                 </h3>
                 <div className="space-y-6">
@@ -332,11 +311,10 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* Contact rapide */}
                 <div className="mt-8 pt-6 border-t border-white/20">
                   <p className="text-slate-300 text-sm mb-3">Urgence chantier ?</p>
-                  <a href="tel:0123456789" className="text-yellow-500 font-bold text-lg hover:text-yellow-400 transition-colors">
-                    01 23 45 67 89
+                  <a href="tel:0762205219" className="text-yellow-500 font-bold text-lg hover:text-yellow-400 transition-colors">
+                    07 62 20 52 19
                   </a>
                 </div>
               </div>
@@ -344,15 +322,16 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Indicateur de progression amélioré */}
+        {/* Indicateur de progression */}
         <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
           {backgroundImages.map((_, index) => (
             <button
               key={index}
               onClick={() => setCurrentImageIndex(index)}
-              className={`h-1 transition-all duration-500 transform hover:scale-y-150 hover:shadow-lg ${
+              aria-label={`Image ${index + 1}`}
+              className={`h-1 transition-all duration-500 ${
                 index === currentImageIndex
-                  ? 'w-12 bg-yellow-500 shadow-lg shadow-yellow-500/50'
+                  ? 'w-12 bg-yellow-500'
                   : 'w-8 bg-white/30 hover:bg-white/50'
               }`}
             />
@@ -360,10 +339,9 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Section Expertise BTP complète */}
+      {/* Section Expertise BTP */}
       <div className="py-20 px-4 bg-slate-900">
         <div className="max-w-7xl mx-auto">
-          {/* Header */}
           <div className="text-center mb-16">
             <span className="text-sm font-bold text-yellow-500 bg-yellow-500/20 px-3 py-1 tracking-wide">
               TOUS CORPS D'ÉTAT
@@ -378,9 +356,7 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Split Intérieur/Extérieur */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
-
             {/* Travaux Intérieurs */}
             <div className="bg-white p-12 shadow-xl">
               <div className="flex items-center mb-8">
@@ -561,7 +537,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* CTA Section */}
           <div className="text-center">
             <div className="bg-white/10 backdrop-blur-sm p-10 border border-white/20">
               <h3 className="text-3xl font-bold text-white mb-4">
@@ -585,18 +560,15 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Section Location de Bennes - Design moderne industriel */}
+      {/* Section Location de Bennes */}
       <div className="pt-24 pb-20 px-4 bg-slate-50">
         <div className="max-w-7xl mx-auto">
-          {/* Header avec design asymétrique */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-20">
             <div className="lg:col-span-7">
               <div className="space-y-6">
-                <div className="inline-block">
-                  <span className="text-sm font-bold text-yellow-600 bg-yellow-100 px-3 py-1 tracking-wide">
-                    SERVICE PREMIUM
-                  </span>
-                </div>
+                <span className="inline-block text-sm font-bold text-yellow-600 bg-yellow-100 px-3 py-1 tracking-wide">
+                  SERVICE PREMIUM
+                </span>
                 <h2 className="text-4xl md:text-6xl font-black text-slate-900 leading-tight">
                   LOCATION DE
                   <span className="block text-blue-600">BENNES</span>
@@ -628,104 +600,47 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Grille produits avec effet de profondeur */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            <div className="group">
-              <div className="bg-white shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                <div className="h-48 bg-slate-200 relative overflow-hidden">
-                  <img
-                    src="/images/gravats.jpg"
-                    alt="Gravats et béton"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-blue-600 text-white px-2 py-1 text-sm font-bold">
-                      PLUS DEMANDÉ
-                    </span>
+            {[
+              { img: 'gravats.jpg', title: 'Gravats & Béton', desc: 'Déblais, béton, parpaings, tuiles', price: '180€', badge: 'PLUS DEMANDÉ', badgeColor: 'bg-blue-600' },
+              { img: 'bois-vegetaux.jpg', title: 'Bois & Végétaux', desc: 'Planches, branches, élagage', price: '160€', badge: 'ÉCO-FRIENDLY', badgeColor: 'bg-yellow-500 text-slate-900' },
+              { img: 'tout-venant.jpg', title: 'Tout-venant', desc: 'Mobilier, encombrants, divers', price: '200€' },
+              { img: 'dechets-tries.jpg', title: 'Déchets triés', desc: 'Métal, placo, isolants', price: 'Prix négocié', badge: 'PREMIUM', badgeColor: 'bg-green-600' }
+            ].map((item, index) => (
+              <div key={index} className="group">
+                <div className="bg-white shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
+                  <div className="h-48 bg-slate-200 relative overflow-hidden">
+                    <img
+                      src={`/images/${item.img}`}
+                      alt={item.title}
+                      loading="lazy"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    {item.badge && (
+                      <div className="absolute top-4 left-4">
+                        <span className={`${item.badgeColor} text-white px-2 py-1 text-sm font-bold`}>
+                          {item.badge}
+                        </span>
+                      </div>
+                    )}
                   </div>
-                </div>
-                <div className="p-6">
-                  <h4 className="text-xl font-bold text-slate-900 mb-2">Gravats & Béton</h4>
-                  <p className="text-slate-600 text-sm mb-4">Déblais, béton, parpaings, tuiles</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl font-black text-slate-900">180€</span>
-                    <span className="text-sm text-slate-500">/semaine</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="group">
-              <div className="bg-white shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                <div className="h-48 bg-slate-200 relative overflow-hidden">
-                  <img
-                    src="/images/bois-vegetaux.jpg"
-                    alt="Bois et végétaux"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-yellow-500 text-slate-900 px-2 py-1 text-sm font-bold">
-                      ÉCO-FRIENDLY
-                    </span>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h4 className="text-xl font-bold text-slate-900 mb-2">Bois & Végétaux</h4>
-                  <p className="text-slate-600 text-sm mb-4">Planches, branches, élagage</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl font-black text-slate-900">160€</span>
-                    <span className="text-sm text-slate-500">/semaine</span>
+                  <div className="p-6">
+                    <h4 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h4>
+                    <p className="text-slate-600 text-sm mb-4">{item.desc}</p>
+                    <div className="flex items-center justify-between">
+                      <span className={`${item.price === 'Prix négocié' ? 'text-lg text-green-600' : 'text-2xl text-slate-900'} font-black`}>
+                        {item.price}
+                      </span>
+                      {item.price !== 'Prix négocié' && (
+                        <span className="text-sm text-slate-500">/semaine</span>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div className="group">
-              <div className="bg-white shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                <div className="h-48 bg-slate-200 relative overflow-hidden">
-                  <img
-                    src="/images/tout-venant.jpg"
-                    alt="Tout-venant"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                </div>
-                <div className="p-6">
-                  <h4 className="text-xl font-bold text-slate-900 mb-2">Tout-venant</h4>
-                  <p className="text-slate-600 text-sm mb-4">Mobilier, encombrants, divers</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-2xl font-black text-slate-900">200€</span>
-                    <span className="text-sm text-slate-500">/semaine</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div className="group">
-              <div className="bg-white shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                <div className="h-48 bg-slate-200 relative overflow-hidden">
-                  <img
-                    src="/images/dechets-tries.jpg"
-                    alt="Déchets triés"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <span className="bg-green-600 text-white px-2 py-1 text-sm font-bold">
-                      PREMIUM
-                    </span>
-                  </div>
-                </div>
-                <div className="p-6">
-                  <h4 className="text-xl font-bold text-slate-900 mb-2">Déchets triés</h4>
-                  <p className="text-slate-600 text-sm mb-4">Métal, placo, isolants</p>
-                  <div className="flex items-center justify-between">
-                    <span className="text-lg font-bold text-green-600">Prix négocié</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
           </div>
 
-          {/* CTA avec design split */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-0 overflow-hidden shadow-2xl">
             <div className="bg-slate-900 p-12 text-white">
               <h3 className="text-3xl font-black mb-4">
@@ -736,9 +651,9 @@ export default function Home() {
                 Commandez maintenant, livré dans les 2 heures.
                 Service disponible 7j/7 dans toute l'Île-de-France.
               </p>
-              <button className="bg-yellow-500 text-slate-900 px-8 py-4 font-bold text-lg hover:bg-yellow-400 transition-colors">
-                APPELER : 01 23 45 67 89
-              </button>
+              <a href="tel:0762205219" className="inline-block bg-yellow-500 text-slate-900 px-8 py-4 font-bold text-lg hover:bg-yellow-400 transition-colors">
+                APPELER : 07 62 20 52 19
+              </a>
             </div>
             <div className="bg-white p-12">
               <h3 className="text-3xl font-black text-slate-900 mb-4">
@@ -746,7 +661,7 @@ export default function Home() {
                 <span className="block text-blue-600">PERSONNALISÉ</span>
               </h3>
               <p className="text-slate-600 mb-8 text-lg">
-                Réponse sous 1h. Tarification adaptée à votre projet.
+                Réponse sous 24h. Tarification adaptée à votre projet.
                 Conseils inclus par nos experts.
               </p>
               <button className="bg-blue-600 text-white px-8 py-4 font-bold text-lg hover:bg-blue-700 transition-colors">
@@ -757,18 +672,12 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Section Contact avec design moderne */}
+      {/* Section Contact */}
       <div className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
-          {/* Header avec layout asymétrique */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-            <div className="lg:col-span-5">
+            <div className="lg:col-span-5 flex flex-col justify-between">
               <div className="space-y-8">
-                <div>
-                  <span className="text-sm font-bold text-blue-600 bg-blue-100 px-3 py-1 tracking-wide">
-                    CONTACT EXPERT
-                  </span>
-                </div>
                 <h2 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
                   VOTRE PROJET
                   <span className="block text-yellow-500">MÉRITE LE MEILLEUR</span>
@@ -778,7 +687,6 @@ export default function Home() {
                   avec passion, rigueur et professionnalisme.
                 </p>
 
-                {/* Stats visuels */}
                 <div className="grid grid-cols-3 gap-6 pt-6">
                   <div className="text-center">
                     <div className="text-2xl font-black text-slate-900">98%</div>
@@ -791,6 +699,22 @@ export default function Home() {
                   <div className="text-center">
                     <div className="text-2xl font-black text-slate-900">500+</div>
                     <div className="text-sm text-slate-600">Projets</div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mt-10 bg-slate-900 p-6 shadow-lg">
+                <div className="flex items-center space-x-4">
+                  <div className="w-12 h-12 bg-yellow-500 flex items-center justify-center flex-shrink-0">
+                    <svg className="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-sm text-slate-400 font-medium mb-1">Réponse sous 24h</p>
+                    <a href="tel:0762205219" className="text-xl font-bold text-yellow-500 hover:text-yellow-400 transition-colors">
+                      07 62 20 52 19
+                    </a>
                   </div>
                 </div>
               </div>
@@ -853,12 +777,13 @@ export default function Home() {
                   <div className="flex items-start space-x-3">
                     <input
                       type="checkbox"
+                      id="accepteConditions"
                       name="accepteConditions"
                       checked={formData.accepteConditions}
                       onChange={handleInputChange}
                       className="w-5 h-5 text-blue-600 border-2 border-slate-300 focus:ring-blue-500 focus:ring-2 mt-1"
                     />
-                    <label className="text-slate-600 leading-relaxed">
+                    <label htmlFor="accepteConditions" className="text-slate-600 leading-relaxed">
                       J'accepte le traitement de mes données personnelles pour cette demande de devis.
                     </label>
                   </div>
@@ -876,55 +801,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
-      {/* CSS personnalisé pour les animations */}
-      <style jsx>{`
-        @keyframes slow-zoom {
-          0% { transform: scale(1.1) translateZ(0); }
-          100% { transform: scale(1.15) translateZ(0); }
-        }
-
-        @keyframes expand-width {
-          0% { width: 0; }
-          100% { width: 3rem; }
-        }
-
-        @keyframes glow {
-          0%, 100% { text-shadow: 0 0 5px rgba(234, 179, 8, 0.5); }
-          50% { text-shadow: 0 0 20px rgba(234, 179, 8, 0.8), 0 0 30px rgba(234, 179, 8, 0.6); }
-        }
-
-        @keyframes float {
-          0%, 100% { transform: translateY(0px) rotate(0deg); }
-          33% { transform: translateY(-20px) rotate(120deg); }
-          66% { transform: translateY(10px) rotate(240deg); }
-        }
-
-        @keyframes pulse-slow {
-          0%, 100% { opacity: 1; transform: scale(1); }
-          50% { opacity: 0.7; transform: scale(0.95); }
-        }
-
-        .animate-slow-zoom {
-          animation: slow-zoom 20s ease-in-out infinite alternate;
-        }
-
-        .animate-expand-width {
-          animation: expand-width 1.5s ease-out forwards;
-        }
-
-        .animate-glow {
-          animation: glow 2s ease-in-out infinite;
-        }
-
-        .animate-pulse-slow {
-          animation: pulse-slow 3s ease-in-out infinite;
-        }
-
-        .animate-float {
-          animation: float 4s ease-in-out infinite;
-        }
-      `}</style>
     </>
   );
 }
