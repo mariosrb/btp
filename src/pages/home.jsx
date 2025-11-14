@@ -396,15 +396,15 @@ export default function Home() {
                   <h4 className="font-bold text-slate-900 mb-3">Second œuvre</h4>
                   <ul className="space-y-2 text-slate-600">
                     <li className="flex items-start">
-                      <div className="w-2 h-2 bg-yellow-500 mt-2 mr-3 flex-shrink-0"></div>
+                      <div className="w-2 h-2 bg-blue-600 mt-2 mr-3 flex-shrink-0"></div>
                       Électricité
                     </li>
                     <li className="flex items-start">
-                      <div className="w-2 h-2 bg-yellow-500 mt-2 mr-3 flex-shrink-0"></div>
+                      <div className="w-2 h-2 bg-blue-600 mt-2 mr-3 flex-shrink-0"></div>
                       Plomberie
                     </li>
                     <li className="flex items-start">
-                      <div className="w-2 h-2 bg-yellow-500 mt-2 mr-3 flex-shrink-0"></div>
+                      <div className="w-2 h-2 bg-blue-600 mt-2 mr-3 flex-shrink-0"></div>
                       Chauffage & climatisation
                     </li>
                   </ul>
@@ -414,15 +414,15 @@ export default function Home() {
                   <h4 className="font-bold text-slate-900 mb-3">Finitions</h4>
                   <ul className="space-y-2 text-slate-600">
                     <li className="flex items-start">
-                      <div className="w-2 h-2 bg-slate-600 mt-2 mr-3 flex-shrink-0"></div>
+                      <div className="w-2 h-2 bg-blue-600 mt-2 mr-3 flex-shrink-0"></div>
                       Carrelage & faïence
                     </li>
                     <li className="flex items-start">
-                      <div className="w-2 h-2 bg-slate-600 mt-2 mr-3 flex-shrink-0"></div>
+                      <div className="w-2 h-2 bg-blue-600 mt-2 mr-3 flex-shrink-0"></div>
                       Peinture & revêtements
                     </li>
                     <li className="flex items-start">
-                      <div className="w-2 h-2 bg-slate-600 mt-2 mr-3 flex-shrink-0"></div>
+                      <div className="w-2 h-2 bg-blue-600 mt-2 mr-3 flex-shrink-0"></div>
                       Menuiseries intérieures
                     </li>
                   </ul>
@@ -432,15 +432,15 @@ export default function Home() {
                   <h4 className="font-bold text-slate-900 mb-3">Spécialités</h4>
                   <ul className="space-y-2 text-slate-600">
                     <li className="flex items-start">
-                      <div className="w-2 h-2 bg-slate-600 mt-2 mr-3 flex-shrink-0"></div>
+                      <div className="w-2 h-2 bg-blue-600 mt-2 mr-3 flex-shrink-0"></div>
                       Isolation thermique
                     </li>
                     <li className="flex items-start">
-                      <div className="w-2 h-2 bg-slate-600 mt-2 mr-3 flex-shrink-0"></div>
+                      <div className="w-2 h-2 bg-blue-600 mt-2 mr-3 flex-shrink-0"></div>
                       Agencement sur mesure
                     </li>
                     <li className="flex items-start">
-                      <div className="w-2 h-2 bg-slate-600 mt-2 mr-3 flex-shrink-0"></div>
+                      <div className="w-2 h-2 bg-blue-600 mt-2 mr-3 flex-shrink-0"></div>
                       Mise aux normes
                     </li>
                   </ul>
@@ -630,7 +630,7 @@ export default function Home() {
                     <p className="text-slate-600 text-sm mb-4">{item.desc}</p>
                     <Link 
                       to="/location" 
-                      className="block w-full py-3 bg-yellow-500 text-slate-900 font-bold text-center hover:bg-yellow-400 transition-colors duration-200"
+                      className="block w-full py-3 bg--300 text-slate-900 font-bold text-center hover:bg-yellow-400 transition-colors duration-200"
                     >
                       LOUER CETTE BENNE
                     </Link>
@@ -702,7 +702,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="mt-10 bg-slate-200 p-6 shadow-lg">
+              <div className="mt-10 bg-slate-100 p-6 shadow-lg">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-yellow-500 flex items-center justify-center flex-shrink-0">
                     <svg className="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -718,6 +718,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
+
 
             <div className="lg:col-span-7">
               <div className="bg-slate-50 p-12 shadow-xl">
