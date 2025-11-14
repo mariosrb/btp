@@ -1,7 +1,16 @@
 import React, { useState } from 'react';
-import { Truck, Clock, Shield, Phone, Calculator, CheckCircle, MapPin, Calendar } from 'lucide-react';
+import {
+  Truck,
+  Clock,
+  Shield,
+  Phone,
+  Calculator,
+  CheckCircle,
+  MapPin,
+  Calendar,
+} from 'lucide-react';
 
-export default function LocationBenneSection() {
+const Location = () => {
   const [selectedSize, setSelectedSize] = useState('10m3');
   const [selectedDuration, setSelectedDuration] = useState('1-week');
 
@@ -12,7 +21,7 @@ export default function LocationBenneSection() {
       description: 'Parfait pour petits travaux',
       price: '120€',
       dimensions: 'L: 3m × l: 1.6m × H: 1m',
-      usage: 'Rénovation appartement, débarras'
+      usage: 'Rénovation appartement, débarras',
     },
     {
       id: '10m3',
@@ -21,7 +30,7 @@ export default function LocationBenneSection() {
       price: '180€',
       dimensions: 'L: 4m × l: 1.8m × H: 1.4m',
       usage: 'Rénovation maison, démolition partielle',
-      popular: true
+      popular: true,
     },
     {
       id: '15m3',
@@ -29,7 +38,7 @@ export default function LocationBenneSection() {
       description: 'Pour gros chantiers',
       price: '240€',
       dimensions: 'L: 5m × l: 1.8m × H: 1.7m',
-      usage: 'Construction, gros œuvre'
+      usage: 'Construction, gros œuvre',
     },
     {
       id: '20m3',
@@ -37,37 +46,39 @@ export default function LocationBenneSection() {
       description: 'Solution professionnelle',
       price: '320€',
       dimensions: 'L: 6m × l: 2m × H: 1.7m',
-      usage: 'Chantiers industriels, démolition'
-    }
+      usage: 'Chantiers industriels, démolition',
+    },
   ];
 
   const services = [
     {
       icon: <Truck className="w-6 h-6" />,
       title: 'Livraison rapide',
-      description: 'Livraison sous 24h partout en Île-de-France'
+      description: 'Livraison sous 24h partout en Île-de-France',
     },
     {
       icon: <Clock className="w-6 h-6" />,
       title: 'Flexibilité',
-      description: 'Location de 1 jour à plusieurs mois selon vos besoins'
+      description: 'Location de 1 jour à plusieurs mois selon vos besoins',
     },
     {
       icon: <Shield className="w-6 h-6" />,
       title: 'Conformité',
-      description: 'Respect des normes environnementales et réglementaires'
-    }
+      description: 'Respect des normes environnementales et réglementaires',
+    },
   ];
 
   return (
     <div className="min-h-screen bg-slate-50">
-      {/* Hero Section moderne */}
       <div className="relative bg-slate-900 text-white py-24 overflow-hidden">
-        {/* Pattern de texture industrielle */}
         <div className="absolute inset-0 opacity-10">
-          <div className="w-full h-full" style={{
-            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px)`
-          }}></div>
+          <div
+            className="w-full h-full"
+            style={{
+              backgroundImage:
+                'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px)',
+            }}
+          />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4">
@@ -113,7 +124,6 @@ export default function LocationBenneSection() {
         </div>
       </div>
 
-      {/* Stats flottants */}
       <div className="relative -mt-12 z-20">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -150,7 +160,6 @@ export default function LocationBenneSection() {
         </div>
       </div>
 
-      {/* Section Types de Bennes */}
       <div className="max-w-7xl mx-auto px-4 py-20">
         <div className="space-y-12">
           <div className="text-center">
@@ -162,8 +171,7 @@ export default function LocationBenneSection() {
               <span className="block text-yellow-500">VOTRE BENNE</span>
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Une gamme complète de bennes pour répondre à tous vos besoins,
-              des petits travaux aux gros chantiers professionnels.
+              Une gamme complète de bennes pour répondre à tous vos besoins, des petits travaux aux gros chantiers professionnels.
             </p>
           </div>
 
@@ -172,9 +180,7 @@ export default function LocationBenneSection() {
               <div
                 key={benne.id}
                 className={`relative bg-white shadow-lg hover:shadow-2xl transition-all duration-300 cursor-pointer hover:-translate-y-2 ${
-                  selectedSize === benne.id
-                    ? 'ring-4 ring-yellow-500 transform -translate-y-2'
-                    : ''
+                  selectedSize === benne.id ? 'ring-4 ring-yellow-500 transform -translate-y-2' : ''
                 }`}
                 onClick={() => setSelectedSize(benne.id)}
               >
@@ -187,67 +193,70 @@ export default function LocationBenneSection() {
                 )}
 
                 <div className="p-8">
-                  {/* Illustration simpliste de benne */}
                   <div className="mb-6 flex justify-center">
                     <div className="relative">
-                      <div className={`w-16 h-12 bg-gradient-to-br from-slate-700 to-slate-900 transform ${
-                        benne.id === '5m3' ? 'scale-75' :
-                        benne.id === '10m3' ? 'scale-90' :
-                        benne.id === '15m3' ? 'scale-100' : 'scale-110'
-                      }`}></div>
-                      <div className={`w-20 h-3 bg-yellow-500 mx-auto transform ${
-                        benne.id === '5m3' ? 'scale-75' :
-                        benne.id === '10m3' ? 'scale-90' :
-                        benne.id === '15m3' ? 'scale-100' : 'scale-110'
-                      }`}></div>
+                      <div
+                        className={`w-16 h-12 bg-gradient-to-br from-slate-700 to-slate-900 transform ${
+                          benne.id === '5m3'
+                            ? 'scale-75'
+                            : benne.id === '10m3'
+                            ? 'scale-90'
+                            : benne.id === '15m3'
+                            ? 'scale-100'
+                            : 'scale-110'
+                        }`}
+                      />
+                      <div
+                        className={`w-20 h-3 bg-yellow-500 mx-auto transform ${
+                          benne.id === '5m3'
+                            ? 'scale-75'
+                            : benne.id === '10m3'
+                            ? 'scale-90'
+                            : benne.id === '15m3'
+                            ? 'scale-100'
+                            : 'scale-110'
+                        }`}
+                      />
                     </div>
                   </div>
 
                   <h3 className="text-2xl font-bold text-slate-900 text-center mb-3">
                     {benne.name}
                   </h3>
-                  <p className="text-slate-600 text-center mb-6">
-                    {benne.description}
-                  </p>
+                  <p className="text-slate-600 text-center mb-6">{benne.description}</p>
 
                   <div className="space-y-3 text-sm text-slate-600 mb-6">
-                    <div><strong>Dimensions:</strong> {benne.dimensions}</div>
-                    <div><strong>Usage:</strong> {benne.usage}</div>
+                    <div>
+                      <strong>Dimensions:</strong> {benne.dimensions}
+                    </div>
+                    <div>
+                      <strong>Usage:</strong> {benne.usage}
+                    </div>
                   </div>
 
                   <div className="text-center">
                     <div className="text-3xl font-black text-slate-900 mb-1">
                       {benne.price}
                     </div>
-                    <div className="text-sm text-slate-500">
-                      /semaine HT
-                    </div>
+                    <div className="text-sm text-slate-500">/semaine HT</div>
                   </div>
                 </div>
               </div>
             ))}
           </div>
 
-          {/* Services - Layout moderne */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
             {services.map((service, index) => (
               <div key={index} className="text-center">
                 <div className="w-16 h-16 bg-slate-100 mx-auto mb-6 flex items-center justify-center hover:bg-yellow-500 hover:text-white transition-all duration-300 group">
-                  <div className="text-slate-700 group-hover:text-white">
-                    {service.icon}
-                  </div>
+                  <div className="text-slate-700 group-hover:text-white">{service.icon}</div>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">
-                  {service.title}
-                </h3>
-                <p className="text-slate-600">
-                  {service.description}
-                </p>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">{service.title}</h3>
+                <p className="text-slate-600">{service.description}</p>
               </div>
             ))}
           </div>
 
-          {/* Formulaire de demande - Design épuré */}
           <div className="bg-white shadow-2xl p-12 max-w-5xl mx-auto">
             <div className="text-center mb-12">
               <span className="text-sm font-bold text-yellow-600 bg-yellow-100 px-3 py-1 tracking-wide">
@@ -283,7 +292,7 @@ export default function LocationBenneSection() {
                   value={selectedSize}
                   onChange={(e) => setSelectedSize(e.target.value)}
                 >
-                  {benneTypes.map(benne => (
+                  {benneTypes.map((benne) => (
                     <option key={benne.id} value={benne.id}>
                       {benne.name} - {benne.price}/semaine
                     </option>
@@ -344,6 +353,7 @@ export default function LocationBenneSection() {
                   {['1-week', '2-weeks', '1-month', 'other'].map((duration) => (
                     <button
                       key={duration}
+                      type="button"
                       onClick={() => setSelectedDuration(duration)}
                       className={`p-4 border-2 transition-all font-medium ${
                         selectedDuration === duration
@@ -368,7 +378,7 @@ export default function LocationBenneSection() {
                   rows="4"
                   placeholder="Décrivez votre projet, contraintes d'accès, type de déchets..."
                   className="w-full p-4 border-2 border-slate-300 bg-white focus:border-blue-600 focus:outline-none transition-colors resize-none font-medium"
-                ></textarea>
+                />
               </div>
             </div>
 
@@ -390,21 +400,20 @@ export default function LocationBenneSection() {
             </div>
           </div>
 
-          {/* Information tarifaire - Design moderne */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 overflow-hidden shadow-2xl">
             <div className="bg-white p-12 text-center">
               <h4 className="text-xl font-bold text-slate-900 mb-6">Tarifs inclus</h4>
               <ul className="space-y-3 text-slate-600">
                 <li className="flex items-center justify-center">
-                  <div className="w-2 h-2 bg-blue-600 mr-3"></div>
+                  <div className="w-2 h-2 bg-blue-600 mr-3" />
                   Livraison et enlèvement
                 </li>
                 <li className="flex items-center justify-center">
-                  <div className="w-2 h-2 bg-blue-600 mr-3"></div>
+                  <div className="w-2 h-2 bg-blue-600 mr-3" />
                   Location 1 semaine
                 </li>
                 <li className="flex items-center justify-center">
-                  <div className="w-2 h-2 bg-blue-600 mr-3"></div>
+                  <div className="w-2 h-2 bg-blue-600 mr-3" />
                   Benne étanche
                 </li>
               </ul>
@@ -414,15 +423,15 @@ export default function LocationBenneSection() {
               <h4 className="text-xl font-bold mb-6">Options</h4>
               <ul className="space-y-3 text-slate-300">
                 <li className="flex items-center justify-center">
-                  <div className="w-2 h-2 bg-yellow-500 mr-3"></div>
+                  <div className="w-2 h-2 bg-yellow-500 mr-3" />
                   Livraison express: +30€
                 </li>
                 <li className="flex items-center justify-center">
-                  <div className="w-2 h-2 bg-yellow-500 mr-3"></div>
+                  <div className="w-2 h-2 bg-yellow-500 mr-3" />
                   Week-end: +25€
                 </li>
                 <li className="flex items-center justify-center">
-                  <div className="w-2 h-2 bg-yellow-500 mr-3"></div>
+                  <div className="w-2 h-2 bg-yellow-500 mr-3" />
                   Semaine supplémentaire: -20%
                 </li>
               </ul>
@@ -432,15 +441,15 @@ export default function LocationBenneSection() {
               <h4 className="text-xl font-bold text-slate-900 mb-6">Zone de livraison</h4>
               <ul className="space-y-3 text-slate-600">
                 <li className="flex items-center justify-center">
-                  <div className="w-2 h-2 bg-slate-600 mr-3"></div>
+                  <div className="w-2 h-2 bg-slate-600 mr-3" />
                   Paris et petite couronne
                 </li>
                 <li className="flex items-center justify-center">
-                  <div className="w-2 h-2 bg-slate-600 mr-3"></div>
+                  <div className="w-2 h-2 bg-slate-600 mr-3" />
                   Île-de-France (supplément)
                 </li>
                 <li className="flex items-center justify-center">
-                  <div className="w-2 h-2 bg-slate-600 mr-3"></div>
+                  <div className="w-2 h-2 bg-slate-600 mr-3" />
                   Autres régions sur demande
                 </li>
               </ul>
@@ -450,4 +459,6 @@ export default function LocationBenneSection() {
       </div>
     </div>
   );
-}
+};
+
+export default Location;
