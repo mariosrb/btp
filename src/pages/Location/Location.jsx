@@ -185,7 +185,7 @@ const Location = () => {
               >
                 {benne.popular && (
                   <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                    <span className="bg-yellow-500 text-slate-900 px-4 py-1 text-sm font-bold">
+                    <span className="bg-yellow-500 text-slate-900 px-4 py-1 text-sm font-bold whitespace-nowrap">
                       PLUS POPULAIRE
                     </span>
                   </div>

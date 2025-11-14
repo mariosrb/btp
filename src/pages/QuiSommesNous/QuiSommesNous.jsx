@@ -11,7 +11,6 @@ import {
   Settings,
   Phone,
   Target,
-  Hammer,
   Home,
   Factory,
   Store,
@@ -30,13 +29,6 @@ const QuiSommesNous = () => {
     { name: 'Jean Dicate', role: 'Fondateur & Directeur Général', icon: Users, exp: '25+ ans' },
     { name: 'Marie Dicate', role: 'Directrice Administrative', icon: Briefcase, exp: '20+ ans' },
     { name: 'Pierre Dicate', role: 'Directeur Technique', icon: Settings, exp: '22+ ans' },
-  ];
-
-  const services = [
-    { icon: Building2, title: 'Construction', desc: 'Gros œuvre, charpente, toiture', sectors: ['Résidentiel', 'Tertiaire'] },
-    { icon: Hammer, title: 'Démolition', desc: 'Terrassement et démolition', sectors: ['Industriel', 'Commercial'] },
-    { icon: Store, title: 'Commerce', desc: 'Magasins, pharmacies, restaurants', sectors: ['Retail', 'Restauration'] },
-    { icon: Factory, title: 'Industriel', desc: 'Hangars, entrepôts, usines', sectors: ['Logistique', 'Production'] },
   ];
 
   const evolution = [
@@ -212,31 +204,9 @@ const QuiSommesNous = () => {
               TOUS CORPS DE MÉTIER
             </h2>
             <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-              Du gros œuvre aux aménagements spécialisés, nous maîtrisons chaque étape avec le même niveau de qualité artisanale.
+              Du gros œuvre aux aménagements spécialisés, nous maîtrisons chaque étape
+              avec le même niveau de qualité artisanale.
             </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {services.map((service, index) => (
-              <div key={index} className="group">
-                <div className="bg-white shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2">
-                  <div className="p-8">
-                    <div className="w-16 h-16 bg-gradient-to-br from-slate-900 to-slate-700 flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform">
-                      <service.icon className="w-8 h-8 text-yellow-500" />
-                    </div>
-                    <h3 className="text-xl font-bold text-slate-900 mb-3 text-center">{service.title}</h3>
-                    <p className="text-slate-600 text-center mb-4">{service.desc}</p>
-                    <div className="flex flex-wrap gap-2 justify-center">
-                      {service.sectors.map((sector, idx) => (
-                        <span key={idx} className="px-3 py-1 bg-slate-100 text-slate-700 text-sm font-medium">
-                          {sector}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
 
