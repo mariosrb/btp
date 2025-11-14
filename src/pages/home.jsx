@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Home() {
   const backgroundImages = [
@@ -340,7 +341,7 @@ export default function Home() {
       </div>
 
       {/* Section Expertise BTP */}
-      <div className="py-20 px-4 bg-slate-900">
+      <div className="py-20 px-4 bg-gradient-to-b from-slate-900 via-slate-800 to-slate-700">
         <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <span className="text-sm font-bold text-yellow-500 bg-yellow-500/20 px-3 py-1 tracking-wide">
@@ -627,14 +628,12 @@ export default function Home() {
                   <div className="p-6">
                     <h4 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h4>
                     <p className="text-slate-600 text-sm mb-4">{item.desc}</p>
-                    <div className="flex items-center justify-between">
-                      <span className={`${item.price === 'Prix négocié' ? 'text-lg text-green-600' : 'text-2xl text-slate-900'} font-black`}>
-                        {item.price}
-                      </span>
-                      {item.price !== 'Prix négocié' && (
-                        <span className="text-sm text-slate-500">/semaine</span>
-                      )}
-                    </div>
+                    <Link 
+                      to="/location" 
+                      className="block w-full py-3 bg-yellow-500 text-slate-900 font-bold text-center hover:bg-yellow-400 transition-colors duration-200"
+                    >
+                      LOUER CETTE BENNE
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -703,7 +702,7 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="mt-10 bg-slate-900 p-6 shadow-lg">
+              <div className="mt-10 bg-slate-200 p-6 shadow-lg">
                 <div className="flex items-center space-x-4">
                   <div className="w-12 h-12 bg-yellow-500 flex items-center justify-center flex-shrink-0">
                     <svg className="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -711,7 +710,7 @@ export default function Home() {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-sm text-slate-400 font-medium mb-1">Réponse sous 24h</p>
+                    <p className="text-sm text-slate-900 font-medium mb-1">Réponse sous 24h</p>
                     <a href="tel:0762205219" className="text-xl font-bold text-yellow-500 hover:text-yellow-400 transition-colors">
                       07 62 20 52 19
                     </a>
