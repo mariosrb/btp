@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import CTAButton from '../common/CTAButton';
 import useBackgroundSlideshow from '../../hooks/useBackgroundSlideshow';
 import useIntersectionReveal from '../../hooks/useIntersectionReveal';
@@ -117,7 +118,7 @@ const HeroSection = () => {
               }`}
               style={{ transitionDelay: '0.7s' }}
             >
-              <CTAButton variant={heroCtas[0]?.variant ?? 'primary'}>
+              <CTAButton as={Link} to="/realisations" variant="primary">
                 {heroCtas[0]?.label}
                 <svg
                   className="w-5 h-5 ml-2"
@@ -133,7 +134,7 @@ const HeroSection = () => {
                   />
                 </svg>
               </CTAButton>
-              <CTAButton variant={heroCtas[1]?.variant ?? 'secondary'}>
+              <CTAButton as={Link} to="/contact" variant="secondary">
                 {heroCtas[1]?.label}
               </CTAButton>
             </div>

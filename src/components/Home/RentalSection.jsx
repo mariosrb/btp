@@ -65,7 +65,7 @@ const RentalSection = () => (
                 <h4 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h4>
                 <p className="text-slate-600 text-sm mb-4">{item.desc}</p>
                 <Link
-                  to="/location"
+                  to="/location#reservation"
                   className="block w-full py-3 bg-yellow-300 text-slate-900 font-bold text-center hover:bg-yellow-400 transition-colors duration-200"
                 >
                   LOUER CETTE BENNE
@@ -100,9 +100,12 @@ const RentalSection = () => (
           <p className="text-slate-600 mb-8 text-lg">
             Réponse sous 24h. Tarification adaptée à votre projet. Conseils inclus par nos experts.
           </p>
-          <button className="bg-blue-600 text-white px-8 py-4 font-bold text-lg hover:bg-blue-700 transition-colors">
+          <Link
+            to="/contact"
+            className="inline-block bg-blue-600 text-white px-8 py-4 font-bold text-lg hover:bg-blue-700 transition-colors"
+          >
             DEMANDER UN DEVIS
-          </button>
+          </Link>
         </div>
       </div>
     </div>

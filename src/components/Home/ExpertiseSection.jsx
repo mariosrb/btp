@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import SectionHeader from '../common/SectionHeader';
 import CTAButton from '../common/CTAButton';
 import {
@@ -85,7 +86,7 @@ const ExpertiseSection = () => (
           titleClassName="text-white"
           highlightClassName="text-yellow-400"
           description="De la fondation à la finition, nous maîtrisons tous les métiers du bâtiment pour vous offrir une solution clé en main."
-          descriptionClassName="text-slate-100"
+          descriptionClassName="text-white"
         />
       </div>
 
@@ -117,8 +118,12 @@ const ExpertiseSection = () => (
             équipe pluridisciplinaire gère votre chantier de A à Z.
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <CTAButton>VOIR NOS RÉALISATIONS</CTAButton>
-            <CTAButton variant="secondary">DEVIS PERSONNALISÉ</CTAButton>
+            <CTAButton as={Link} to="/realisations">
+              VOIR NOS RÉALISATIONS
+            </CTAButton>
+            <CTAButton as={Link} to="/contact" variant="secondary">
+              DEVIS PERSONNALISÉ
+            </CTAButton>
           </div>
         </div>
       </div>

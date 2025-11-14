@@ -256,7 +256,8 @@ const Location = () => {
             ))}
           </div>
 
-          <div className="bg-white shadow-2xl p-12 max-w-5xl mx-auto">
+          <div className="bg-white shadow-2xl p-12 max-w-5xl mx-auto" id="reservation">
+            <div className="-mt-20 pt-20" aria-hidden="true" />
             <div className="text-center mb-12">
               <span className="text-sm font-bold text-yellow-600 bg-yellow-100 px-3 py-1 tracking-wide">
                 DEVIS GRATUIT
