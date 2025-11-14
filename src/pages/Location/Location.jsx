@@ -70,16 +70,15 @@ const Location = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <div className="relative bg-slate-900 text-white py-24 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div
-            className="w-full h-full"
-            style={{
-              backgroundImage:
-                'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px)',
-            }}
-          />
-        </div>
+      <div
+        className="relative bg-slate-900 text-white py-24 overflow-hidden"
+        style={{
+          backgroundImage: "url('/images/benne.jpg')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="absolute inset-0 bg-slate-900/80" />
 
         <div className="relative max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
