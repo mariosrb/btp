@@ -19,9 +19,9 @@ import {
 
 const QuiSommesNous = () => {
   const certifications = [
-    { icon: Award, title: 'RGE', desc: "Reconnu Garant de l'Environnement" },
+    { icon: Award, title: 'RGE (en cours)', desc: "Reconnu Garant de l'Environnement (dossier en cours)" },
     { icon: Shield, title: 'Assurance Décennale', desc: 'Couverture complète 10 ans' },
-    { icon: CheckCircle, title: 'Qualibat', desc: 'Qualification professionnelle BTP' },
+    { icon: CheckCircle, title: 'Qualibat (en cours)', desc: 'Qualification professionnelle BTP (dossier en cours)' },
     { icon: Star, title: 'Certifié', desc: 'Normes qualité respectées' },
   ];
 
@@ -40,18 +40,10 @@ const QuiSommesNous = () => {
 
   return (
     <div className="min-h-screen bg-slate-50">
-      <div className="relative w-full bg-slate-900 text-white py-24 overflow-hidden">
-        <div className="absolute inset-0 opacity-10">
-          <div
-            className="w-full h-full"
-            style={{
-              backgroundImage:
-                'repeating-linear-gradient(45deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px)',
-            }}
-          />
-        </div>
+      <div className="relative w-full text-white py-24 overflow-hidden qs-hero-background">
+        <div className="absolute inset-0 bg-slate-900/80" />
 
-        <div className="max-w-7xl mx-auto px-4">
+        <div className="relative max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <div className="lg:col-span-8">
               <div className="space-y-8">
