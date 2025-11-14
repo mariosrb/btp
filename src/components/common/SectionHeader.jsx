@@ -8,6 +8,9 @@ const SectionHeader = ({
   description,
   align = 'center',
   className = '',
+  titleClassName = '',
+  highlightClassName = '',
+  descriptionClassName = '',
 }) => {
   const alignmentClass =
     align === 'left'
@@ -31,17 +34,43 @@ const SectionHeader = ({
         </span>
       )}
       {(title || highlight) && (
-        <h2 className="text-4xl md:text-5xl font-black text-slate-900 leading-tight">
+        <h2
+          className={[
+            'text-4xl md:text-5xl font-black leading-tight text-slate-900',
+            titleClassName,
+          ]
+            .filter(Boolean)
+            .join(' ')}
+        >
           {title}
-          {highlight && <span className="block text-yellow-500">{highlight}</span>}
+          {highlight && (
+            <span
+              className={[
+                'block text-yellow-500',
+                highlightClassName,
+              ]
+                .filter(Boolean)
+                .join(' ')}
+            >
+              {highlight}
+            </span>
+          )}
         </h2>
       )}
       {description && (
-        <p className="text-xl text-slate-600 max-w-3xl">{description}</p>
+        <p
+          className={[
+            'text-xl text-slate-600 max-w-3xl',
+            descriptionClassName,
+          ]
+            .filter(Boolean)
+            .join(' ')}
+        >
+          {description}
+        </p>
       )}
     </div>
   );
 };
 
 export default SectionHeader;
-

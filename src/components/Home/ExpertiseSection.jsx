@@ -82,7 +82,10 @@ const ExpertiseSection = () => (
           badgeClassName="text-sm font-bold text-yellow-500 bg-yellow-500/20"
           title="UNE EXPERTISE"
           highlight="COMPLÈTE"
+          titleClassName="text-white"
+          highlightClassName="text-yellow-400"
           description="De la fondation à la finition, nous maîtrisons tous les métiers du bâtiment pour vous offrir une solution clé en main."
+          descriptionClassName="text-slate-100"
         />
       </div>
 
@@ -124,4 +127,3 @@ const ExpertiseSection = () => (
 );
 
 export default ExpertiseSection;
-
