@@ -1,16 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
+import HeroSection from '../../components/Realisations/HeroSection';
+import GuaranteesSection from '../../components/Realisations/GuaranteesSection';
+import MasonryGallery from '../../components/Realisations/MasonryGallery';
+import CTASection from '../../components/Realisations/CTASection';
+import Lightbox from '../../components/Realisations/Lightbox';
+import { galleryImages } from '../../data/realisations/galleryData';
 
-const Realisations = () => (
-  <div className="min-h-screen bg-gray-100 py-8">
-    <div className="container mx-auto px-4">
-      <h1 className="text-3xl font-bold text-center mb-8">Réalisations</h1>
-      <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-md p-6">
-        <p className="text-gray-600 text-center">
-          Page en cours de construction.
-        </p>
-      </div>
+const Realisations = () => {
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const handleImageClick = (image) => {
+    setSelectedImage(image);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedImage(null);
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-50">
+      <HeroSection />
+      <GuaranteesSection />
+      <MasonryGallery images={galleryImages} onImageClick={handleImageClick} />
+      <CTASection />
+      <Lightbox image={selectedImage} onClose={handleCloseModal} />
     </div>
-  </div>
-);
+  );
+};
 
 export default Realisations;
