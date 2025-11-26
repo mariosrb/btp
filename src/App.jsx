@@ -5,6 +5,7 @@ import QuiSommesNous from './pages/QuiSommesNous/QuiSommesNous';
 import Realisations from './pages/Realisations/Realisations';
 import Location from './pages/Location/Location';
 import Contact from './pages/Contact/Contact';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/location" element={<Location />} />
       </Routes>
+      <Footer />
     </>
   );
 }

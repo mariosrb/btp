@@ -53,13 +53,6 @@ const RentalSection = () => (
                   loading="lazy"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                {item.badge && (
-                  <div className="absolute top-4 left-4">
-                    <span className={`${item.badgeColor} px-2 py-1 text-sm font-bold`}>
-                      {item.badge}
-                    </span>
-                  </div>
-                )}
               </div>
               <div className="p-6">
                 <h4 className="text-xl font-bold text-slate-900 mb-2">{item.title}</h4>
