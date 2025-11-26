@@ -18,12 +18,12 @@ const MasonryGallery = ({ images, onImageClick }) => {
     <section className="py-20 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-12">
-          <span className="inline-block text-sm font-bold text-blue-600 bg-blue-100 px-3 py-1 tracking-wide mb-6">
+          <span className="inline-block text-sm font-bold text-yellow-500 bg-yellow-500/10 px-3 py-1 tracking-wide mb-6">
             NOTRE TRAVAIL
           </span>
           <h2 className="text-4xl md:text-5xl font-black text-slate-900 mb-4">
             PROJETS
-            <span className="block text-blue-600">RÉCENTS</span>
+            <span className="block text-yellow-500">RÉCENTS</span>
           </h2>
           <p className="text-xl text-slate-600 max-w-3xl mx-auto">
             De la construction neuve à la rénovation complète, découvrez la diversité de nos réalisations
@@ -31,7 +31,7 @@ const MasonryGallery = ({ images, onImageClick }) => {
         </div>
 
         {/* Grille Masonry */}
-        <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[200px] gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[200px] gap-4 grid-flow-dense">
           {images.map((image, index) => (
             <div
               key={index}
