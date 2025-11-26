@@ -3,7 +3,6 @@ import React from 'react';
 const HeroSection = () => {
   const stats = [
     { label: 'Projets réalisés', value: '500+' },
-    { label: 'Clients satisfaits', value: '98%' },
     { label: 'Délais respectés', value: '98%' },
     { label: 'Années d\'expertise', value: '13+' },
   ];
