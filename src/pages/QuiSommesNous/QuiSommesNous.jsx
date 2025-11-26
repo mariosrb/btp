@@ -7,8 +7,6 @@ import {
   Clock,
   CheckCircle,
   Star,
-  Briefcase,
-  Settings,
   Phone,
   Target,
   Home,
@@ -26,9 +24,9 @@ const QuiSommesNous = () => {
   ];
 
   const team = [
-    { name: 'Jean Dicate', role: 'Fondateur & Directeur Général', icon: Users, exp: '25+ ans' },
-    { name: 'Marie Dicate', role: 'Directrice Administrative', icon: Briefcase, exp: '20+ ans' },
-    { name: 'Pierre Dicate', role: 'Directeur Technique', icon: Settings, exp: '22+ ans' },
+    { name: 'Pierre Dicate', role: 'Directeur Technique', image: '/images/sin.jpeg', exp: '22+ ans' },
+    { name: 'Jean Dicate', role: 'Fondateur & Directeur Général', image: '/images/otac.jpeg', exp: '25+ ans' },
+    { name: 'Marie Dicate', role: 'Directrice Administrative', image: '/images/majka.jpeg', exp: '20+ ans' },
   ];
 
   const evolution = [
@@ -288,17 +286,23 @@ const QuiSommesNous = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-            {team.map((member, index) => (
+            {team.map((member) => (
               <div
-                key={index}
+                key={member.name}
                 className="bg-white shadow-xl overflow-hidden group hover:-translate-y-2 transition-all duration-300"
               >
-                <div className="bg-slate-900 p-8 text-center text-white">
-                  <div className="w-20 h-20 bg-yellow-500 mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <member.icon className="w-10 h-10 text-slate-900" />
+                <div className="relative h-80">
+                  <img
+                    src={member.image}
+                    alt={`Portrait de ${member.name}`}
+                    className="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                  <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/10 transition-colors duration-300" />
+                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900/90 to-transparent p-6 text-center text-white">
+                    <h3 className="text-2xl font-bold mb-2">{member.name}</h3>
+                    <p className="text-yellow-500 font-semibold">{member.role}</p>
                   </div>
-                  <h3 className="text-xl font-bold mb-2">{member.name}</h3>
-                  <p className="text-yellow-500 font-semibold">{member.role}</p>
                 </div>
                 <div className="p-6 text-center">
                   <div className="inline-block bg-slate-100 px-4 py-2 text-slate-700 font-bold">
