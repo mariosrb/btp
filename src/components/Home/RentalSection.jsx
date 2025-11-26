@@ -59,7 +59,7 @@ const RentalSection = () => (
                 <p className="text-slate-600 text-sm mb-4">{item.desc}</p>
                 <Link
                   to="/location#reservation"
-                  className="block w-full py-3 bg-yellow-300 text-slate-900 font-bold text-center hover:bg-yellow-400 transition-colors duration-200"
+                  className="block w-full py-3 bg-yellow-300 text-black font-bold text-center hover:bg-yellow-400 transition-colors duration-200"
                 >
                   LOUER CETTE BENNE
                 </Link>

@@ -16,11 +16,10 @@ const ElegantNavbar = () => {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled
-        ? 'bg-slate-900 backdrop-blur-md shadow-xl border-b border-slate-700/50'
-        : 'bg-slate-900 backdrop-blur-sm'
-    }`}>
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
+      ? 'bg-slate-900 backdrop-blur-md shadow-xl border-b border-slate-700/50'
+      : 'bg-slate-900 backdrop-blur-sm'
+      }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
@@ -66,7 +65,7 @@ const ElegantNavbar = () => {
 
             <Link
               to="/contact"
-              className="rounded-lg font-semibold border border-white text-white bg-white/10 shadow-sm transition-all duration-200 hover:bg-white hover:text-yellow-400 px-6 py-2.5 text-base"
+              className="rounded-lg font-semibold border border-white text-white bg-white/10 shadow-sm transition-all duration-200 hover:bg-white hover:text-yellow-500 px-6 py-2.5 text-base"
             >
               Contactez-nous
             </Link>
@@ -80,23 +79,19 @@ const ElegantNavbar = () => {
             onClick={() => setMenuOpen(!menuOpen)}
           >
             <div className="w-6 h-6 flex flex-col justify-center space-y-1">
-              <span className={`block w-6 h-0.5 bg-current transition-all duration-300 ${
-                menuOpen ? 'rotate-45 translate-y-2' : ''
-              }`}></span>
-              <span className={`block w-6 h-0.5 bg-current transition-all duration-300 ${
-                menuOpen ? 'opacity-0' : ''
-              }`}></span>
-              <span className={`block w-6 h-0.5 bg-current transition-all duration-300 ${
-                menuOpen ? '-rotate-45 -translate-y-2' : ''
-              }`}></span>
+              <span className={`block w-6 h-0.5 bg-current transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''
+                }`}></span>
+              <span className={`block w-6 h-0.5 bg-current transition-all duration-300 ${menuOpen ? 'opacity-0' : ''
+                }`}></span>
+              <span className={`block w-6 h-0.5 bg-current transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''
+                }`}></span>
             </div>
           </button>
         </div>
 
         {/* Mobile Navigation Menu */}
-        <div className={`md:hidden transition-all duration-300 ease-in-out ${
-          menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
-        }`}>
+        <div className={`md:hidden transition-all duration-300 ease-in-out ${menuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
+          }`}>
           <div className="px-2 pt-2 pb-3 space-y-1 bg-slate-900/95 backdrop-blur-md border-t border-slate-700/50">
             <Link
               to="/"
@@ -132,7 +127,7 @@ const ElegantNavbar = () => {
 
             <Link
               to="/contact"
-              className="block mx-3 mt-4 px-4 py-2 rounded-lg font-semibold border border-white text-white bg-white/10 shadow-sm transition-all duration-200 hover:bg-white hover:text-yellow-400 text-sm text-center"
+              className="block mx-3 mt-4 px-4 py-2 rounded-lg font-semibold border border-white text-white bg-white/10 shadow-sm transition-all duration-200 hover:bg-white hover:text-yellow-500 text-sm text-center"
               onClick={() => setMenuOpen(false)}
             >
               Contactez-nous

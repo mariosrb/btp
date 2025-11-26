@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import {
   Truck,
   Clock,
@@ -11,6 +12,7 @@ import {
 } from 'lucide-react';
 
 const Location = () => {
+  const location = useLocation();
   const [selectedSize, setSelectedSize] = useState('10m3');
   const [selectedDuration, setSelectedDuration] = useState('1-week');
 
@@ -67,6 +69,26 @@ const Location = () => {
       description: 'Respect des normes environnementales et réglementaires',
     },
   ];
+
+  useEffect(() => {
+    if (!location.hash) {
+      return;
+    }
+
+    const targetId = location.hash.replace('#', '');
+
+    const scrollToTarget = () => {
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    };
+
+    scrollToTarget();
+    const timeoutId = setTimeout(scrollToTarget, 150);
+
+    return () => clearTimeout(timeoutId);
+  }, [location.hash]);
 
   return (
     <div className="min-h-screen bg-slate-50">

@@ -34,9 +34,8 @@ const HeroSection = () => {
         images.map((image, index) => (
           <div
             key={image}
-            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${
-              index === currentIndex ? 'opacity-100' : 'opacity-0'
-            }`}
+            className={`absolute inset-0 bg-cover bg-center transition-opacity duration-1000 ${index === currentIndex ? 'opacity-100' : 'opacity-0'
+              }`}
             style={{
               backgroundImage: `url(${image})`,
               transform: 'scale(1.05)',
@@ -59,9 +58,8 @@ const HeroSection = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center min-h-[60vh]">
           <div className="lg:col-span-7 space-y-10">
             <div
-              className={`inline-flex items-center space-x-2 transition-all duration-700 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`}
+              className={`inline-flex items-center space-x-2 transition-all duration-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                }`}
             >
               <div className="w-3 h-3 bg-yellow-500 animate-pulse" />
               <span className="text-yellow-500 font-bold text-sm tracking-wider">
@@ -72,18 +70,16 @@ const HeroSection = () => {
 
             <div className="space-y-6">
               <h1
-                className={`text-5xl md:text-7xl font-black text-white leading-[0.9] tracking-tight transition-all duration-1000 ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
+                className={`text-5xl md:text-7xl font-black text-white leading-[0.9] tracking-tight transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                  }`}
               >
                 {heroCopy.title}
                 <span className="block text-yellow-500">{heroCopy.highlight}</span>
               </h1>
 
               <p
-                className={`text-xl md:text-2xl text-slate-200 font-light max-w-xl leading-relaxed transition-all duration-1000 ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-                }`}
+                className={`text-xl md:text-2xl text-slate-200 font-light max-w-xl leading-relaxed transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                  }`}
                 style={{ transitionDelay: '0.3s' }}
               >
                 {heroCopy.description}
@@ -92,9 +88,8 @@ const HeroSection = () => {
 
             <div
               ref={statsRef}
-              className={`flex flex-wrap gap-8 pt-8 transition-all duration-1000 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`}
+              className={`flex flex-wrap gap-8 pt-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                }`}
               style={{ transitionDelay: '0.5s' }}
             >
               {heroStats.map((stat, index) => (
@@ -113,9 +108,8 @@ const HeroSection = () => {
             </div>
 
             <div
-              className={`flex flex-col sm:flex-row gap-6 pt-6 transition-all duration-1000 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`}
+              className={`flex flex-col sm:flex-row gap-6 pt-6 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                }`}
               style={{ transitionDelay: '0.7s' }}
             >
               <CTAButton as={Link} to="/realisations" variant="primary">
@@ -141,9 +135,8 @@ const HeroSection = () => {
           </div>
 
           <div
-            className={`lg:col-span-5 lg:pl-8 transition-all duration-1000 ${
-              isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
-            }`}
+            className={`lg:col-span-5 lg:pl-8 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'
+              }`}
             style={{ transitionDelay: '0.9s' }}
           >
             <div className="bg-white/10 backdrop-blur-lg border border-white/20 p-8">
@@ -243,11 +236,10 @@ const HeroSection = () => {
             type="button"
             onClick={() => selectImage(index)}
             aria-label={`Image ${index + 1}`}
-            className={`h-1 transition-all duration-500 ${
-              index === currentIndex
+            className={`h-1 transition-all duration-500 ${index === currentIndex
                 ? 'w-12 bg-yellow-500'
                 : 'w-8 bg-white/30 hover:bg-white/50'
-            }`}
+              }`}
           />
         ))}
       </div>
