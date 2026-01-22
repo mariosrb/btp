@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { submitContactForm } from '../../services/contactService';
 import {
   Truck,
   Shield,
@@ -14,6 +15,52 @@ const Location = () => {
   const location = useLocation();
   const [selectedSize, setSelectedSize] = useState('10m3');
   const [selectedDuration, setSelectedDuration] = useState('1-week');
+  const [formData, setFormData] = useState({
+    address: '',
+    date: '',
+    name: '',
+    phone: '',
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      await submitContactForm({
+        type: 'skip_hire',
+        data: {
+          size: selectedSize,
+          duration: selectedDuration,
+          ...formData,
+        },
+      });
+      setSubmitStatus('success');
+      // Reset form
+      setFormData({
+        address: '',
+        date: '',
+        name: '',
+        phone: '',
+      });
+    } catch (error) {
+      console.error(error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const benneTypes = [
     {
@@ -258,22 +305,8 @@ const Location = () => {
               </h3>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div>
-                <label className="block text-sm font-bold text-slate-700 mb-3">
-                  Type de projet *
-                </label>
-                <select className="w-full p-4 border-2 border-slate-300 bg-white focus:border-blue-600 focus:outline-none transition-colors font-medium">
-                  <option>Rénovation résidentielle</option>
-                  <option>Construction neuve</option>
-                  <option>Démolition</option>
-                  <option>Débarras</option>
-                  <option>Travaux de jardinage</option>
-                  <option>Autre</option>
-                </select>
-              </div>
-
-              <div>
+            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="md:col-span-2">
                 <label className="block text-sm font-bold text-slate-700 mb-3">
                   Taille de benne *
                 </label>
@@ -290,6 +323,8 @@ const Location = () => {
                 </select>
               </div>
 
+
+
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-3">
                   <MapPin className="w-4 h-4 inline mr-1" />
@@ -297,6 +332,10 @@ const Location = () => {
                 </label>
                 <input
                   type="text"
+                  name="address"
+                  value={formData.address}
+                  onChange={handleInputChange}
+                  required
                   placeholder="Adresse complète"
                   className="w-full p-4 border-2 border-slate-300 bg-white focus:border-blue-600 focus:outline-none transition-colors font-medium"
                 />
@@ -309,6 +348,10 @@ const Location = () => {
                 </label>
                 <input
                   type="date"
+                  name="date"
+                  value={formData.date}
+                  onChange={handleInputChange}
+                  required
                   className="w-full p-4 border-2 border-slate-300 bg-white focus:border-blue-600 focus:outline-none transition-colors font-medium"
                 />
               </div>
@@ -319,6 +362,10 @@ const Location = () => {
                 </label>
                 <input
                   type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  required
                   placeholder="Votre nom et prénom"
                   className="w-full p-4 border-2 border-slate-300 bg-white focus:border-blue-600 focus:outline-none transition-colors font-medium"
                 />
@@ -330,6 +377,10 @@ const Location = () => {
                 </label>
                 <input
                   type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  required
                   placeholder="06 12 34 56 78"
                   className="w-full p-4 border-2 border-slate-300 bg-white focus:border-blue-600 focus:outline-none transition-colors font-medium"
                 />
@@ -359,17 +410,8 @@ const Location = () => {
                 </div>
               </div>
 
-              <div className="md:col-span-2">
-                <label className="block text-sm font-bold text-slate-700 mb-3">
-                  Informations complémentaires
-                </label>
-                <textarea
-                  rows="4"
-                  placeholder="Décrivez votre projet, contraintes d'accès, type de déchets..."
-                  className="w-full p-4 border-2 border-slate-300 bg-white focus:border-blue-600 focus:outline-none transition-colors resize-none font-medium"
-                />
-              </div>
-            </div>
+
+            </form>
 
             <div className="flex flex-col md:flex-row items-center justify-between mt-12 gap-6">
               <div className="flex items-center text-slate-600">
@@ -377,16 +419,38 @@ const Location = () => {
                 Vos données sont protégées et ne seront jamais partagées
               </div>
               <div className="flex gap-4">
-                <button className="flex items-center px-6 py-4 border-2 border-blue-600 text-blue-600 font-bold hover:bg-blue-50 transition-colors">
+                <a href="tel:0762205219" className="flex items-center px-6 py-4 border-2 border-blue-600 text-blue-600 font-bold hover:bg-blue-50 transition-colors">
                   <Phone className="w-4 h-4 mr-2" />
                   Appeler directement
-                </button>
-                <button className="flex items-center px-8 py-4 bg-yellow-500 text-slate-900 font-bold hover:bg-yellow-400 transition-colors">
-                  <Calculator className="w-4 h-4 mr-2" />
-                  Demander un devis
+                </a>
+                <button
+                  onClick={handleSubmit}
+                  disabled={isSubmitting}
+                  className="flex items-center px-8 py-4 bg-yellow-500 text-slate-900 font-bold hover:bg-yellow-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? (
+                    'Envoi en cours...'
+                  ) : (
+                    <>
+                      <Calculator className="w-4 h-4 mr-2" />
+                      Demander un devis
+                    </>
+                  )}
                 </button>
               </div>
             </div>
+
+            {submitStatus === 'success' && (
+              <div className="mt-6 p-4 bg-green-100 text-green-700 rounded-lg text-center font-bold">
+                Votre demande a bien été envoyée ! Nous vous recontacterons très rapidement.
+              </div>
+            )}
+
+            {submitStatus === 'error' && (
+              <div className="mt-6 p-4 bg-red-100 text-red-700 rounded-lg text-center font-bold">
+                Une erreur est survenue. Veuillez réessayer ou nous appeler directement.
+              </div>
+            )}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 overflow-hidden shadow-2xl">
