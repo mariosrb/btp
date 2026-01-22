@@ -12,9 +12,9 @@ const Footer = () => {
                     <div className="space-y-6">
                         <div className="flex items-center space-x-2">
                             <img
-                                src="./images/logo2.svg"
+                                src="/images/logo2.svg"
                                 alt="Logo DICATE"
-                                className="w-auto h-16 object-contain"
+                                className="w-auto h-20 object-contain"
                             />
                         </div>
                         <p className="text-slate-400 text-sm leading-relaxed text-justify">
@@ -63,8 +63,8 @@ const Footer = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                                 </svg>
                                 <span className="text-slate-400 text-sm">
-                                    123 Avenue de la Construction<br />
-                                    75000 Paris, France
+                                    24 rue Léo Lagrange<br />
+                                    93160 Noisy-le-Grand
                                 </span>
                             </li>
                             <li className="flex items-center space-x-3">
@@ -80,7 +80,7 @@ const Footer = () => {
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                                 </svg>
                                 <a href="mailto:dicate.pro@gmail.com" className="text-slate-400 hover:text-white transition-colors text-sm">
-                                    dictate.pro@gmail.com
+                                    dicate.pro@gmail.com
                                 </a>
                             </li>
                         </ul>
@@ -99,31 +99,31 @@ const Footer = () => {
                                 <span>Paris (75)</span>
                             </li>
                             <li className="flex items-center space-x-2">
-                                <span className="w-1.5 h-1.5 bg-slate-600 rounded-full"></span>
+                                <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>
                                 <span>Seine-et-Marne (77)</span>
                             </li>
                             <li className="flex items-center space-x-2">
-                                <span className="w-1.5 h-1.5 bg-slate-600 rounded-full"></span>
+                                <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>
                                 <span>Yvelines (78)</span>
                             </li>
                             <li className="flex items-center space-x-2">
-                                <span className="w-1.5 h-1.5 bg-slate-600 rounded-full"></span>
+                                <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>
                                 <span>Essonne (91)</span>
                             </li>
                             <li className="flex items-center space-x-2">
-                                <span className="w-1.5 h-1.5 bg-slate-600 rounded-full"></span>
+                                <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>
                                 <span>Hauts-de-Seine (92)</span>
                             </li>
                             <li className="flex items-center space-x-2">
-                                <span className="w-1.5 h-1.5 bg-slate-600 rounded-full"></span>
+                                <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>
                                 <span>Seine-Saint-Denis (93)</span>
                             </li>
                             <li className="flex items-center space-x-2">
-                                <span className="w-1.5 h-1.5 bg-slate-600 rounded-full"></span>
+                                <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>
                                 <span>Val-de-Marne (94)</span>
                             </li>
                             <li className="flex items-center space-x-2">
-                                <span className="w-1.5 h-1.5 bg-slate-600 rounded-full"></span>
+                                <span className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></span>
                                 <span>Val-d’Oise (95)</span>
                             </li>
                         </ul>

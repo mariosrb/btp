@@ -39,11 +39,51 @@ const useContactForm = (initialValues = defaultValues, { successDelay = 3000 } =
       return;
     }
 
+    // Validations légères
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email || '');
+    const phoneDigits = String(formData.telephone || '').replace(/\D/g, '');
+    const phoneValid = phoneDigits.length >= 6;
+
+    if (!emailValid || !phoneValid) {
+      setError(
+        !emailValid
+          ? 'Email invalide.'
+          : 'Téléphone invalide (6 chiffres minimum).'
+      );
+      setStatus('error');
+      return;
+    }
+
+    const name = [formData.prenom, formData.nom].filter(Boolean).join(' ').trim() || 'Contact site';
+    const messageParts = [];
+
+    if (formData.description) {
+      messageParts.push(formData.description);
+    }
+
+    if (formData.travauxInterieur && formData.travauxInterieur !== 'Aucun') {
+      messageParts.push(`Travaux intérieurs : ${formData.travauxInterieur}`);
+    }
+
+    if (formData.travauxExterieur && formData.travauxExterieur !== 'Aucun') {
+      messageParts.push(`Travaux extérieurs : ${formData.travauxExterieur}`);
+    }
+
+    const payload = {
+      type: 'contact',
+      data: {
+        name,
+        email: formData.email,
+        phone: formData.telephone,
+        message: messageParts.join('\n'),
+      },
+    };
+
     setStatus('submitting');
     setError(null);
 
     try {
-      await submitContactForm(formData);
+      await submitContactForm(payload);
       setStatus('success');
       resetForm();
       setTimeout(() => {

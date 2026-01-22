@@ -47,9 +47,6 @@ const MasonryGallery = ({ images, onImageClick }) => {
               {/* Overlay au survol */}
               <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
                 <div className="text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                  <span className="inline-block text-xs font-bold text-yellow-500 bg-yellow-500/20 px-2 py-1 mb-2">
-                    {image.category}
-                  </span>
                   <p className="font-bold text-lg mb-1">{image.alt}</p>
                   <p className="text-sm text-slate-300">Cliquez pour agrandir</p>
                 </div>

@@ -3,26 +3,25 @@ import { useLocation } from 'react-router-dom';
 import { submitContactForm } from '../../services/contactService';
 import {
   Truck,
-  Shield,
-  Phone,
   Calculator,
   CheckCircle,
   MapPin,
-  Calendar,
+  Send,
 } from 'lucide-react';
 
 const Location = () => {
   const location = useLocation();
   const [selectedSize, setSelectedSize] = useState('10m3');
-  const [selectedDuration, setSelectedDuration] = useState('1-week');
   const [formData, setFormData] = useState({
-    address: '',
-    date: '',
     name: '',
+    email: '',
     phone: '',
+    subject: 'Location de benne',
+    message: '',
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // 'success' | 'error' | null
+  const [submitError, setSubmitError] = useState(null);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -34,25 +33,41 @@ const Location = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSubmitError(null);
+
+    const emailValid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email || '');
+    const phoneDigits = String(formData.phone || '').replace(/\D/g, '');
+    const phoneValid = phoneDigits.length >= 6;
+
+    if (!emailValid || !phoneValid) {
+      setSubmitStatus('error');
+      setSubmitError(
+        !emailValid
+          ? 'Email invalide.'
+          : 'Téléphone invalide (6 chiffres minimum).'
+      );
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus(null);
 
     try {
       await submitContactForm({
-        type: 'skip_hire',
+        type: 'contact',
         data: {
-          size: selectedSize,
-          duration: selectedDuration,
           ...formData,
+          benne: selectedSize,
         },
       });
       setSubmitStatus('success');
       // Reset form
       setFormData({
-        address: '',
-        date: '',
         name: '',
+        email: '',
         phone: '',
+        subject: 'Renseignement',
+        message: '',
       });
     } catch (error) {
       console.error(error);
@@ -295,67 +310,26 @@ const Location = () => {
 
           <div className="bg-white shadow-2xl p-12 max-w-5xl mx-auto" id="reservation">
             <div className="-mt-20 pt-20" aria-hidden="true" />
-            <div className="text-center mb-12">
+            <div className="text-center mb-10">
               <span className="text-sm font-bold text-yellow-600 bg-yellow-100 px-3 py-1 tracking-wide">
-                DEVIS GRATUIT
+                CONTACT
               </span>
-              <h3 className="text-4xl font-black text-slate-900 mt-6 mb-4">
-                RÉSERVEZ
-                <span className="block text-blue-600">VOTRE BENNE</span>
+              <h3 className="text-4xl font-black text-slate-900 mt-6 mb-3">
+                Parlons de votre besoin
               </h3>
+              <p className="text-slate-600 max-w-2xl mx-auto">
+                Réponse rapide sous 24h. Indiquez-nous vos coordonnées et votre projet, nous revenons vers vous avec un devis précis.
+              </p>
+              <p className="text-sm text-slate-500 mt-2">
+                Benne sélectionnée : <span className="font-semibold text-slate-800">{selectedSize}</span>
+              </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              <div className="md:col-span-2">
-                <label className="block text-sm font-bold text-slate-700 mb-3">
-                  Taille de benne *
-                </label>
-                <select
-                  className="w-full p-4 border-2 border-slate-300 bg-white focus:border-blue-600 focus:outline-none transition-colors font-medium"
-                  value={selectedSize}
-                  onChange={(e) => setSelectedSize(e.target.value)}
-                >
-                  {benneTypes.map((benne) => (
-                    <option key={benne.id} value={benne.id}>
-                      {benne.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-
-
-
-              <div>
-                <label className="block text-sm font-bold text-slate-700 mb-3">
-                  <MapPin className="w-4 h-4 inline mr-1" />
-                  Adresse de livraison *
-                </label>
-                <input
-                  type="text"
-                  name="address"
-                  value={formData.address}
-                  onChange={handleInputChange}
-                  required
-                  placeholder="Adresse complète"
-                  className="w-full p-4 border-2 border-slate-300 bg-white focus:border-blue-600 focus:outline-none transition-colors font-medium"
-                />
-              </div>
-
-              <div>
-                <label className="block text-sm font-bold text-slate-700 mb-3">
-                  <Calendar className="w-4 h-4 inline mr-1" />
-                  Date de livraison souhaitée *
-                </label>
-                <input
-                  type="date"
-                  name="date"
-                  value={formData.date}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full p-4 border-2 border-slate-300 bg-white focus:border-blue-600 focus:outline-none transition-colors font-medium"
-                />
-              </div>
-
+            <form
+              id="reservation-form"
+              onSubmit={handleSubmit}
+              className="grid grid-cols-1 md:grid-cols-2 gap-8"
+            >
               <div>
                 <label className="block text-sm font-bold text-slate-700 mb-3">
                   Nom complet *
@@ -366,8 +340,8 @@ const Location = () => {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  placeholder="Votre nom et prénom"
-                  className="w-full p-4 border-2 border-slate-300 bg-white focus:border-blue-600 focus:outline-none transition-colors font-medium"
+                  placeholder="Votre nom"
+                  className="w-full p-4 border border-slate-200 bg-slate-50 focus:border-blue-600 focus:outline-none transition-colors font-medium"
                 />
               </div>
 
@@ -382,75 +356,90 @@ const Location = () => {
                   onChange={handleInputChange}
                   required
                   placeholder="06 12 34 56 78"
-                  className="w-full p-4 border-2 border-slate-300 bg-white focus:border-blue-600 focus:outline-none transition-colors font-medium"
+                  className="w-full p-4 border border-slate-200 bg-slate-50 focus:border-blue-600 focus:outline-none transition-colors font-medium"
                 />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-3">
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  required
+                  placeholder="vous@entreprise.fr"
+                  className="w-full p-4 border border-slate-200 bg-slate-50 focus:border-blue-600 focus:outline-none transition-colors font-medium"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-bold text-slate-700 mb-3">
+                  Sujet
+                </label>
+                <select
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleInputChange}
+                  className="w-full p-4 border border-slate-200 bg-slate-50 focus:border-blue-600 focus:outline-none transition-colors font-medium"
+                >
+                  <option>Location de benne</option>
+                  <option>Demande de devis</option>
+                  <option>Renseignement</option>
+                  <option>Partenariat</option>
+                  <option>Autre</option>
+                </select>
               </div>
 
               <div className="md:col-span-2">
                 <label className="block text-sm font-bold text-slate-700 mb-3">
-                  Durée de location
+                  Message *
                 </label>
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                  {['1-week', '2-weeks', '1-month', 'other'].map((duration) => (
-                    <button
-                      key={duration}
-                      type="button"
-                      onClick={() => setSelectedDuration(duration)}
-                      className={`p-4 border-2 transition-all font-medium ${selectedDuration === duration
-                        ? 'border-yellow-500 bg-yellow-50 text-yellow-700'
-                        : 'border-slate-300 hover:border-blue-600 text-slate-700'
-                        }`}
-                    >
-                      {duration === '1-week' && '1 semaine'}
-                      {duration === '2-weeks' && '2 semaines'}
-                      {duration === '1-month' && '1 mois'}
-                      {duration === 'other' && 'Autre durée'}
-                    </button>
-                  ))}
-                </div>
+                <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  required
+                  rows="6"
+                  placeholder="Décrivez votre besoin, les délais souhaités, le budget estimé..."
+                  className="w-full border border-slate-200 bg-slate-50 px-4 py-4 font-medium text-slate-900 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+                />
               </div>
-
-
-            </form>
-
-            <div className="flex flex-col md:flex-row items-center justify-between mt-12 gap-6">
-              <div className="flex items-center text-slate-600">
-                <Shield className="w-5 h-5 mr-2" />
-                Vos données sont protégées et ne seront jamais partagées
-              </div>
-              <div className="flex gap-4">
-                <a href="tel:0762205219" className="flex items-center px-6 py-4 border-2 border-blue-600 text-blue-600 font-bold hover:bg-blue-50 transition-colors">
-                  <Phone className="w-4 h-4 mr-2" />
-                  Appeler directement
-                </a>
+              <div className="md:col-span-2 space-y-4">
                 <button
-                  onClick={handleSubmit}
+                  type="submit"
                   disabled={isSubmitting}
-                  className="flex items-center px-8 py-4 bg-yellow-500 text-slate-900 font-bold hover:bg-yellow-400 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex w-full items-center justify-center gap-3 bg-yellow-500 px-8 py-4 text-lg font-black text-slate-900 transition hover:bg-yellow-400 hover:shadow-xl hover:shadow-yellow-500/30 focus:outline-none focus-visible:ring-4 focus-visible:ring-yellow-200 disabled:cursor-not-allowed disabled:opacity-60"
                 >
                   {isSubmitting ? (
                     'Envoi en cours...'
                   ) : (
                     <>
-                      <Calculator className="w-4 h-4 mr-2" />
-                      Demander un devis
+                      <Send className="h-5 w-5" />
+                      Envoyer ma demande
                     </>
                   )}
                 </button>
-              </div>
-            </div>
 
-            {submitStatus === 'success' && (
-              <div className="mt-6 p-4 bg-green-100 text-green-700 rounded-lg text-center font-bold">
-                Votre demande a bien été envoyée ! Nous vous recontacterons très rapidement.
-              </div>
-            )}
+                {submitStatus === 'success' && (
+                  <div className="flex items-center gap-3 border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
+                    <CheckCircle className="h-4 w-4" />
+                    Message envoyé ! Nous revenons vers vous très vite.
+                  </div>
+                )}
 
-            {submitStatus === 'error' && (
-              <div className="mt-6 p-4 bg-red-100 text-red-700 rounded-lg text-center font-bold">
-                Une erreur est survenue. Veuillez réessayer ou nous appeler directement.
+                {submitStatus === 'error' && (
+                  <div className="border border-red-200 bg-red-50 px-4 py-3 text-sm font-medium text-red-700">
+                    Une erreur est survenue. Merci de réessayer ou de nous appeler directement.
+                    {submitError && (
+                      <span className="block text-xs mt-1 opacity-80">{submitError}</span>
+                    )}
+                  </div>
+                )}
               </div>
-            )}
+            </form>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-0 overflow-hidden shadow-2xl">

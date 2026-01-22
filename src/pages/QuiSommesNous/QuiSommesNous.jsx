@@ -24,9 +24,9 @@ const QuiSommesNous = () => {
   ];
 
   const team = [
-    { name: 'Pierre Dicate', role: 'Directeur Technique', image: '/images/sin.jpeg', exp: '22+ ans' },
-    { name: 'Jean Dicate', role: 'Fondateur & Directeur Général', image: '/images/otac.jpeg', exp: '25+ ans' },
-    { name: 'Marie Dicate', role: 'Directrice Administrative', image: '/images/majka.jpeg', exp: '20+ ans' },
+    { name: 'Gabriel Dobie', role: "Chef d'équipe", image: '/images/sin.jpeg', exp: '5 ans' },
+    { name: 'Ioan Dobie', role: 'Dirigeant', image: '/images/otac.jpeg', exp: '20+ ans' },
+    { name: 'Ana Dobie', role: 'Directrice Administrative', image: '/images/majka.jpeg', exp: '20+ ans' },
   ];
 
   const evolution = [
@@ -295,7 +295,7 @@ const QuiSommesNous = () => {
                   <img
                     src={member.image}
                     alt={`Portrait de ${member.name}`}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover object-top"
                     loading="lazy"
                   />
                   <div className="absolute inset-0 bg-slate-900/20 group-hover:bg-slate-900/10 transition-colors duration-300" />

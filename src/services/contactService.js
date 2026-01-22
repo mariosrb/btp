@@ -1,13 +1,24 @@
 export const submitContactForm = async (formData) => {
-  // Placeholder implementation - to be replaced by real backend integration (e.g., email service)
-  console.groupCollapsed('Contact form submission');
-  console.table(formData);
-  console.groupEnd();
+  try {
+    const response = await fetch('/api/send-email', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
 
-  // Simulate network latency to keep UX consistent with previous implementation
-  await new Promise((resolve) => setTimeout(resolve, 300));
+    const data = await response.json();
 
-  return { status: 'ok' };
+    if (!response.ok) {
+      throw new Error(data.error || 'Une erreur est survenue');
+    }
+
+    return { status: 'ok', data };
+  } catch (error) {
+    console.error('Error submitting form:', error);
+    throw error;
+  }
 };
 
 export default submitContactForm;

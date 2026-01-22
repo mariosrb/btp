@@ -1,1 +1,8 @@
 .vercel
+.env*.local
+node_modules
+dist
+.DS_Store
+public/images/.DS_Store
+src/.DS_Store
+node_modules
