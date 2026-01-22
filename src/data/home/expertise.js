@@ -1,19 +1,19 @@
 export const interiorExpertise = [
   {
-    title: 'Gros œuvre',
-    items: ['Cloisons & doublages', 'Dalle & chape', 'Ouvertures'],
+    title: 'Second œuvre - Structure',
+    items: ['Cloisons & doublages', 'Isolation thermique', 'Dalle & chape'],
   },
   {
-    title: 'Second œuvre',
-    items: ['Électricité', 'Plomberie', 'Chauffage & climatisation'],
+    title: 'Réseaux & Équipements',
+    items: ['Électricité & mise aux normes', 'Plomberie sanitaire', 'Chauffage & climatisation'],
   },
   {
-    title: 'Finitions',
-    items: ['Carrelage & faïence', 'Peinture & revêtements', 'Menuiseries intérieures'],
+    title: 'Revêtements - Déco',
+    items: ['Carrelage & faïence', 'Peinture & enduits', 'Parquets & sols souples'],
   },
   {
-    title: 'Spécialités',
-    items: ['Isolation thermique', 'Agencement sur mesure', 'Mise aux normes'],
+    title: 'Menuiserie & Agencement',
+    items: ['Menuiseries intérieures', 'Agencement sur mesure', 'Portes, placards & dressing'],
   },
 ];
 
